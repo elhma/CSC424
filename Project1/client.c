@@ -44,7 +44,7 @@ int main(int argc, char *argv[])
 
 	//Complete the missing codes
     serv_addr.sin_family = AF_INET;
-    serv_addr.sin_addr.s_addr = SERVER_ADDR;
+    serv_addr.sin_addr.s_addr = atoi(SERVER_ADDR);
     serv_addr.sin_port = htons(portno);
 
     if (connect(sockfd,(struct sockaddr *) &serv_addr,sizeof(serv_addr)) < 0) 
@@ -89,7 +89,7 @@ int main(int argc, char *argv[])
 
 
     /* send BYE message */
-    n = write(socketfd, client_msg, MAX_STR_SIZE);
+    n = write(sockfd, client_msg, MAX_STR_SIZE);
     if (n < 0)
 	    error("ERROR writing to socket");
 
