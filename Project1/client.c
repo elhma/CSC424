@@ -57,7 +57,7 @@ int main(int argc, char *argv[])
     printf("%s HELLO %s\n", magic_str, argv[argc-1]);
 
     /* send HELLO message */
-    n = write(socketfd, client_msg, MAX_STR_SIZE);
+    n = write(sockfd, client_msg, MAX_STR_SIZE);
     if (n < 0)
 	    error("ERROR writing to socket");
 
@@ -68,12 +68,12 @@ int main(int argc, char *argv[])
          error("ERROR reading from socket");
     
     /* parse STATUS message */
-    char* check_str = strtok(server_msg1, " ");
-    if (strcmp(check_str, magic_str) != 0)
+    char* check_str1 = strtok(server_msg1, " ");
+    if (strcmp(check_str1, magic_str) != 0)
 	error("Incorrect magic string");
 
-    char* check_typ = strtok(NULL, " ");
-    if (strcmp(check_typ, "STATUS") != 0)
+    char* check_typ1 = strtok(NULL, " ");
+    if (strcmp(check_typ1, "STATUS") != 0)
 	error("Incorrect message type");
 
     rand_num_str = strtok(NULL, " ");
@@ -101,12 +101,12 @@ int main(int argc, char *argv[])
          error("ERROR reading from socket");
     
     /* parse CONFIRM_BYE message */
-    char* check_str = strtok(server_msg1, " ");
-    if (strcmp(check_str, magic_str) != 0)
+    char* check_str2 = strtok(server_msg1, " ");
+    if (strcmp(check_str2, magic_str) != 0)
 	error("Incorrect magic string");
 
-    char* check_typ = strtok(NULL, " ");
-    if (strcmp(check_typ, "CONFIRM_BYE") != 0)
+    char* check_typ2 = strtok(NULL, " ");
+    if (strcmp(check_typ2, "CONFIRM_BYE") != 0)
 	error("Incorrect message type");
 
     gold_str = strtok(NULL, " ");
