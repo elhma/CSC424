@@ -37,9 +37,9 @@ int main(int argc, char *argv[])
         error("ERROR opening socket");
 
 	//Complete the missing codes
-    serv_addr.sin_family = ;
-    serv_addr.sin_addr.s_addr = ;
-    serv_addr.sin_port = ;
+    serv_addr.sin_family = AF_INET;
+    serv_addr.sin_addr.s_addr = SERVER_ADDR;
+    serv_addr.sin_port = htons(portno);
 
     if (connect(sockfd,(struct sockaddr *) &serv_addr,sizeof(serv_addr)) < 0) 
         error("ERROR connecting");
@@ -51,7 +51,9 @@ int main(int argc, char *argv[])
     printf("%s HELLO %s\n", magic_str, argv[argc-1]);
 
     /* send HELLO message */
-    //Do Stuff
+    n = write(socketfd, client_msg, MAX_STR_SIZE);
+    if (n < 0)
+	    error("ERROR writing to socket");
 
     /* receive STATUS message */
     bzero(server_msg1,MAX_STR_SIZE);					//receive STATUS message
