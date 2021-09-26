@@ -42,14 +42,18 @@ int main(int argc, char *argv[])
     if (sockfd < 0) 
         error("ERROR opening socket");
 
+    printf("checkpoint1");
+	
 	//Complete the missing codes
     serv_addr.sin_family = AF_INET;
     serv_addr.sin_addr.s_addr = atoi(SERVER_ADDR);
     serv_addr.sin_port = htons(portno);
-
+    
     if (connect(sockfd,(struct sockaddr *) &serv_addr,sizeof(serv_addr)) < 0) 
         error("ERROR connecting");
-
+    
+    printf("checkpoint2");
+	
     /* Communication */
     /* construct HELLO message */
     bzero(client_msg, MAX_STR_SIZE);
