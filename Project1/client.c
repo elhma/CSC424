@@ -46,7 +46,7 @@ int main(int argc, char *argv[])
 	
 	//Complete the missing codes
     serv_addr.sin_family = AF_INET;
-    serv_addr.sin_addr.s_addr = inet_addr(SERVER_ADDR);
+    serv_addr.sin_addr.s_addr = inet_addr("34.72.244.14");
     serv_addr.sin_port = htons(portno);
     
     if (connect(sockfd,(struct sockaddr *) &serv_addr,sizeof(serv_addr)) < 0) 
