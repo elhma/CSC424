@@ -42,7 +42,6 @@ int main(int argc, char *argv[])
     if (sockfd < 0) 
         error("ERROR opening socket");
 
-    printf("checkpoint1");
 	
 	//Complete the missing codes
     serv_addr.sin_family = AF_INET;
@@ -51,8 +50,7 @@ int main(int argc, char *argv[])
     
     if (connect(sockfd,(struct sockaddr *) &serv_addr,sizeof(serv_addr)) < 0) 
         error("ERROR connecting");
-    
-    printf("checkpoint2");
+
 	
     /* Communication */
     /* construct HELLO message */
@@ -105,7 +103,7 @@ int main(int argc, char *argv[])
          error("ERROR reading from socket");
     
     /* parse CONFIRM_BYE message */
-    char* check_str2 = strtok(server_msg1, " ");
+    char* check_str2 = strtok(server_msg2, " ");
     if (strcmp(check_str2, magic_str) != 0)
 	error("Incorrect magic string");
 
