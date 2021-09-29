@@ -72,11 +72,11 @@ int main(int argc, char *argv[])
     /* parse STATUS message */
     char* check_str1 = strtok(server_msg1, " ");
     if (strcmp(check_str1, magic_str) != 0)
-	error("ERROR Incorrect magic string");
+	error("Incorrect magic string");
 
     char* check_typ1 = strtok(NULL, " ");
     if (strcmp(check_typ1, "STATUS") != 0)
-	error("ERROR Incorrect message type");
+	error("Incorrect message type");
 
     rand_num_str = strtok(NULL, " ");
     rand_num_str2 = strtok(NULL, " ");
@@ -124,11 +124,11 @@ int main(int argc, char *argv[])
     /* parse CONFIRM_BYE message */
     char* check_str2 = strtok(server_msg2, " ");
     if (strcmp(check_str2, magic_str) != 0)
-	error("ERROR Incorrect magic string");
+	error("Incorrect magic string");
 
     char* check_typ2 = strtok(NULL, " ");
     if (strcmp(check_typ2, "CONFIRM_BYE") != 0)
-	error("ERROR Incorrect message type");
+	error("Incorrect message type");
 
     gold_str = strtok(NULL, " ");
   
