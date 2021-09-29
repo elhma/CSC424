@@ -72,33 +72,16 @@ int main(int argc, char *argv[])
     /* parse STATUS message */
     char* check_str1 = strtok(server_msg1, " ");
     if (strcmp(check_str1, magic_str) != 0)
-	error("Incorrect magic string");
+	error("ERROR Incorrect magic string");
 
     char* check_typ1 = strtok(NULL, " ");
     if (strcmp(check_typ1, "STATUS") != 0)
-	error("Incorrect message type");
+	error("ERROR Incorrect message type");
 
     rand_num_str = strtok(NULL, " ");
     rand_num_str2 = strtok(NULL, " ");
     addr_string = strtok(NULL, " ");
-    
-    char myIP[MAX_STR_SIZE];
-    unsigned int myPort;
-    struct sockaddr_in my_addr;
-    char myPortString[MAX_STR_SIZE];
-
-    bzero(&my_addr, sizeof(my_addr));
-    socklen_t len = sizeof(my_addr);
-    getsockname(sockfd, (struct sockaddr *) &my_addr, &len);
-    inet_ntop(AF_INET, &my_addr.sin_addr, myIP, sizeof(myIP));
-    myPort = ntohs(my_addr.sin_port);
-    sprintf(myPortString, "%d", myPort);
-    strcat(myIP,":");
-    strcat(myIP,myPortString);
-    printf("Function = %s vs Sent = %s", myIP, addr_string);
-    
-    if(strcmp(myIP, addr_string) != 0)
-	    error("ERROR Incorrect IP Address or Port Number");
+  
 	
     printf("%s STATUS %s %s %s\n", magic_str, rand_num_str, rand_num_str2, addr_string);
 
