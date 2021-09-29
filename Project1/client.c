@@ -82,16 +82,22 @@ int main(int argc, char *argv[])
     rand_num_str2 = strtok(NULL, " ");
     addr_string = strtok(NULL, " ");
     
-    char myIP[16];
+    char myIP[MAX_STR_SIZE];
     unsigned int myPort;
-    struct my_addr;
+    struct sockaddr_in my_addr;
+    char myPortString[MAX_STR_SIZE];
 
     bzero(&my_addr, sizeof(my_addr));
     socklen_t len = sizeof(my_addr);
     getsockname(sockfd, (struct sockaddr *) &my_addr, &len);
     inet_ntop(AF_INET, &my_addr.sin_addr, myIP, sizeof(myIP));
     myPort = ntohs(my_addr.sin_port);
-    if(strcmp(myIP":"myPort, addr_string) != 0)
+    sprintf(myPortString, "%d", myPort);
+    strcat(myIP,":");
+    strcat(myIP,myPortString);
+    printf("Function = %s vs Sent = %s", myIP, addr_string);
+    
+    if(strcmp(myIP, addr_string) != 0)
 	    error("ERROR Incorrect IP Address or Port Number");
 	
     printf("%s STATUS %s %s %s\n", magic_str, rand_num_str, rand_num_str2, addr_string);
