@@ -11,6 +11,12 @@
 #define BUF_SIZE 4096 
 #define QUEUE_SIZE 10
 
+void fatal(char *string)
+{
+  printf("%s\n", string); 
+  exit(1);
+}
+
 int main(int argc, char *argv[])
 {
   int s, b, l, fd, sa, bytes, on = 1;
