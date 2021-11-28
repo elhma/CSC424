@@ -35,14 +35,8 @@ int main(int argc, char *argv[])
   
   b=bind(s, (struct sockaddr *) &channel, sizeof(channel));
   if (b< 0) fatal("bind failed"); 
-  
-  l=listen(s, QUEUE_SIZE);
-  if (l<0) fatal("listen failed");
 
   while (1) {
-    sa = accept(s, 0, 0); 
-    if (sa < 0) fatal("accept failed");
-
     read(sa, buf, BUF_SIZE);
 
     fd = open(buf, O_RDONLY);
