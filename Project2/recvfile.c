@@ -23,7 +23,7 @@ int main(int argc, char *argv)
   struct sockaddr_in channel;
 
   if (argc != 3) fatal("Usage: client server-name file-name");
-  h= gethostbyname(*argv[1]); 
+  h= gethostbyname(&argv[1]); 
   if (!h) fatal("gethostbyname failed");
 
   s=socket(PF_INET, SOCK_DGRAM, IPPROTO_TCP);
@@ -36,7 +36,7 @@ int main(int argc, char *argv)
   c=connect(s, (struct sockaddr*) &channel, sizeof(channel)); 
   if (c< 0) fatal("connect failed");
 
-  write(s, argv[2], strlen(*argv[2])+1);
+  write(s, argv[2], strlen(&argv[2])+1);
 
   while (1) {
     bytes = read(s, buf, BUF_SIZE);
