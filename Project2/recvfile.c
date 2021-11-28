@@ -24,14 +24,13 @@ int main(int argc, char *argv)
   struct sockaddr_in channel;
 
   if (argc != 3) fatal("Usage: client server-name file-name");
-  h= gethostbyname("75.74.185.174"); 
+  h= gethostbyname(&argv[1]); 
   if (h==NULL) {
-    printf("%d",h_errno);
+    printf("%d\n",h_errno);
     fatal("gethostbyname failed");
   }
 
   s=socket(PF_INET, SOCK_DGRAM, 0);
-  if (s >= 0) printf("created socket");
   if (s <0) fatal("socket");
   memset(&channel, 0, sizeof(channel));
   channel.sin_family= AF_INET;
