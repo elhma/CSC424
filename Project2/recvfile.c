@@ -25,7 +25,10 @@ int main(int argc, char *argv)
 
   if (argc != 3) fatal("Usage: client server-name file-name");
   h= gethostbyname(&argv[1]); 
-  if (h==NULL) fatal(h_errno);
+  if (h==NULL) {
+    print(h_errno)
+    fatal("gethostbyname failed");
+  }
 
   s=socket(PF_INET, SOCK_DGRAM, 0);
   if (s <0) fatal("socket");
