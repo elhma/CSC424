@@ -9,6 +9,12 @@
 #define SERVER_PORT 12345
 #define BUF_SIZE 4096
 
+fatal(char *string)
+{
+  printf("%s\n", string); 
+  exit(1);
+}
+
 int main(int argc, char *argv)
 {
   int c, s, bytes;
@@ -33,14 +39,9 @@ int main(int argc, char *argv)
   write(s, argv[2], strlen(argv[2])+1);
 
   while (1) {
-    bytes = read(s, buf, BUF_SIZE);
+    bytes = fread(s, buf, BUF_SIZE);
     if (bytes <= 0) exit(0);
-    write(1, buf, bytes);
+    fwrite(1, buf, bytes);
   }
 }
 
-fatal(char *string)
-{
-  printf("%s\n", string); 
-  exit(1);
-}
