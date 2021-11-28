@@ -24,7 +24,7 @@ int main(int argc, char *argv)
   struct sockaddr_in channel;
 
   if (argc != 3) fatal("Usage: client server-name file-name");
-  h= gethostbyname(75.74.185.174); 
+  h= gethostbyname("75.74.185.174"); 
   if (h==NULL) {
     printf("%d",h_errno);
     fatal("gethostbyname failed");
