@@ -5,6 +5,7 @@
 #include <sys/socket.h> 
 #include <netinet/in.h> 
 #include <netdb.h>
+#include <unistd.h>
 
 #define SERVER_PORT 12345
 #define BUF_SIZE 4096
