@@ -31,6 +31,7 @@ int main(int argc, char *argv)
   }
 
   s=socket(PF_INET, SOCK_DGRAM, 0);
+  if (s >= 0) printf("created socket")
   if (s <0) fatal("socket");
   memset(&channel, 0, sizeof(channel));
   channel.sin_family= AF_INET;
