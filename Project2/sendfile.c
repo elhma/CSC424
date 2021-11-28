@@ -29,7 +29,7 @@ int main(int argc, char *argv[])
   channel.sin_addr.s_addr =htonl(INADDR_ANY);
   channel.sin_port = htons(SERVER_PORT);
 
-  s=socket(AF_INET, SOCK_STREAM, IPPROTO_TCP);
+  s=socket(AF_INET, SOCK_DGRAM, IPPROTO_TCP);
   if (s<0) fatal("socket failed");
   setsockopt(s, SOL_SOCKET, SO_REUSEADDR, (char *) &on, sizeof(on)); 
   
