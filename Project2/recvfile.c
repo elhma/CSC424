@@ -16,20 +16,17 @@ void fatal(char *string)
   exit(1);
 }
 
-int main(int argc, char *argv[])
+int main(int argc, char *argv)
 {
   int c, s, bytes;
   char buf[BUF_SIZE]; 
   struct hostent *h;
   struct sockaddr_in channel;
-  
-  printf("hello");
+
   if (argc != 3) fatal("Usage: client server-name file-name");
-  printf("%s", argv[1]);
-  h= gethostbyname(argv[1]); 
-  printf("This worked");
+  h= gethostbyname(&argv[1]); 
   if (h==NULL) {
-    printf("%d\n",h_errno);
+    printf("%d",*h_errno);
     fatal("gethostbyname failed");
   }
 
@@ -43,7 +40,7 @@ int main(int argc, char *argv[])
   c=connect(s, (struct sockaddr*) &channel, sizeof(channel)); 
   if (c< 0) fatal("connect failed");
 
-  write(s, argv[2], strlen(argv[2])+1);
+  write(s, &argv[2], strlen(&argv[2])+1);
 
   while (1) {
     bytes = read(s, buf, BUF_SIZE);
@@ -51,4 +48,3 @@ int main(int argc, char *argv[])
     write(1, buf, bytes);
   }
 }
-
