@@ -40,11 +40,10 @@ int main(int argc, char *argv[])
 
   c=connect(s, (struct sockaddr*) &channel, sizeof(channel)); 
   if (c< 0) fatal("connect failed");
+  
+  write(s, argv[2], strlen(argv[2])+1);
 
   printf("worked!!");
-  
-//   write(s, argv[2], strlen(argv[2])+1);
-
 //   while (1) {
 //     bytes = read(s, buf, BUF_SIZE);
 //     if (bytes <= 0) exit(0);
