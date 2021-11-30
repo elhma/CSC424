@@ -38,9 +38,11 @@ int main(int argc, char *argv[])
   memcpy(&channel.sin_addr.s_addr, h->h_addr, h->h_length);
   channel.sin_port= htons(SERVER_PORT);
 
-//   c=connect(s, (struct sockaddr*) &channel, sizeof(channel)); 
-//   if (c< 0) fatal("connect failed");
+  c=connect(s, (struct sockaddr*) &channel, sizeof(channel)); 
+  if (c< 0) fatal("connect failed");
 
+  printf("worked!!");
+  
 //   write(s, argv[2], strlen(argv[2])+1);
 
 //   while (1) {
