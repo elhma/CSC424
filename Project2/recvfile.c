@@ -31,13 +31,12 @@ int main(int argc, char *argv[])
     fatal("gethostbyname failed");
   }
   
-  printf("Worked!");
-//   s=socket(PF_INET, SOCK_DGRAM, 0);
-//   if (s <0) fatal("socket");
-//   memset(&channel, 0, sizeof(channel));
-//   channel.sin_family= AF_INET;
-//   memcpy(&channel.sin_addr.s_addr, h->h_addr, h->h_length);
-//   channel.sin_port= htons(SERVER_PORT);
+  s=socket(PF_INET, SOCK_DGRAM, 0);
+  if (s <0) fatal("socket");
+  memset(&channel, 0, sizeof(channel));
+  channel.sin_family= AF_INET;
+  memcpy(&channel.sin_addr.s_addr, h->h_addr, h->h_length);
+  channel.sin_port= htons(SERVER_PORT);
 
 //   c=connect(s, (struct sockaddr*) &channel, sizeof(channel)); 
 //   if (c< 0) fatal("connect failed");
