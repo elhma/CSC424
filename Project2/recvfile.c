@@ -30,7 +30,8 @@ int main(int argc, char *argv[])
     printf("%d",h_errno);
     fatal("gethostbyname failed");
   }
-
+  
+  printf("Worked!");
 //   s=socket(PF_INET, SOCK_DGRAM, 0);
 //   if (s <0) fatal("socket");
 //   memset(&channel, 0, sizeof(channel));
