@@ -43,10 +43,11 @@ int main(int argc, char *argv[])
   
   write(s, argv[2], strlen(argv[2])+1);
 
-  printf("worked!!");
-//   while (1) {
-//     bytes = read(s, buf, BUF_SIZE);
-//     if (bytes <= 0) exit(0);
-//     write(1, buf, bytes);
-//   }
+  while (1) {
+    bytes = read(s, buf, BUF_SIZE);
+    if (bytes <= 0) exit(0);
+    write(1, buf, bytes);
+  }
+  
+    printf("worked!!");
 }
