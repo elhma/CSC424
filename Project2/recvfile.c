@@ -16,7 +16,7 @@ void fatal(char *string)
   exit(1);
 }
 
-int main(int argc, char *argv)
+int main(int argc, char *argv[])
 {
   int c, s, bytes;
   char buf[BUF_SIZE]; 
