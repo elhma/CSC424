@@ -26,7 +26,7 @@ int main(int argc, char *argv[])
   if (argc != 3) fatal("Usage: client server-name file-name");
   printf("%s", argv[1]);
   h= gethostbyname(argv[1]); 
-  printf("%s", h_name);
+  printf("This worked");
   if (h==NULL) {
     printf("%d\n",h_errno);
     fatal("gethostbyname failed");
