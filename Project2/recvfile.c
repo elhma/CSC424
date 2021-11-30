@@ -24,9 +24,9 @@ int main(int argc, char *argv[])
   struct sockaddr_in channel;
 
   if (argc != 3) fatal("Usage: client server-name file-name");
-  printf("%s", argv[1])
+  printf("%s", argv[1]);
   h= gethostbyname(argv[1]); 
-  printf("%s", h)
+  printf("%s", h);
   if (h==NULL) {
     printf("%d\n",h_errno);
     fatal("gethostbyname failed");
