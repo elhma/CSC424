@@ -22,7 +22,8 @@ int main(int argc, char *argv[])
   char buf[BUF_SIZE]; 
   struct hostent *h;
   struct sockaddr_in channel;
-
+  
+  printf("hello");
   if (argc != 3) fatal("Usage: client server-name file-name");
   printf("%s", argv[1]);
   h= gethostbyname(argv[1]); 
