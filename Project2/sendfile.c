@@ -40,7 +40,7 @@ int main(int argc, char *argv[])
   while (1) {
     r = read(sa, buf, BUF_SIZE);
     if (r <= 0 ) {
-      printf("%d", errno);
+      perror("Error:");
       fatal("read failed");
     }
       
