@@ -37,8 +37,9 @@ int main(int argc, char *argv[])
   if (b< 0) fatal("bind failed"); 
 
   while (1) {
-    read(sa, buf, BUF_SIZE);
-
+    r = read(sa, buf, BUF_SIZE);
+    if (r <= 0 ) fatal("read failed");
+    
     fd = open(buf, O_RDONLY);
     if (fd < 0) fatal ("open failed");
 
