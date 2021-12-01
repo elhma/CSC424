@@ -38,8 +38,11 @@ int main(int argc, char *argv[])
 
   while (1) {
     r = read(sa, buf, BUF_SIZE);
-    if (r <= 0 ) fatal("read failed");
-    
+    if (r <= 0 ) {
+      printf("%d", r_errno);
+      fatal("read failed");
+    }
+      
     fd = open(buf, O_RDONLY);
     if (fd < 0) fatal ("open failed");
 
