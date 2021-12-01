@@ -20,7 +20,7 @@ void fatal(char *string)
 
 int main(int argc, char *argv[])
 {
-  int s, b, l, fd, sa, bytes, on = 1;
+  int s, b, l, fd, sa, bytes, on, r = 1;
   char buf[BUF_SIZE];
   struct sockaddr_in channel;
 
