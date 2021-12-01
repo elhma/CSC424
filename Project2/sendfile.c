@@ -7,6 +7,7 @@
 #include <netinet/in.h>
 #include <netdb.h>
 #include <unistd.h>
+#include <errno.h>
 
 #define SERVER_PORT 12345
 #define BUF_SIZE 4096 
