@@ -23,7 +23,7 @@ int main(int argc, char *argv[])
   char buf[BUF_SIZE]; 
   struct hostent *h;
   struct sockaddr_in servAddr;
-  struct sockaddr_in cliAddr
+  struct sockaddr_in cliAddr;
 
   if (argc != 3) fatal("Usage: client server-name file-name");
   h = gethostbyname(argv[1]); 
