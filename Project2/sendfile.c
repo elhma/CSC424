@@ -8,6 +8,7 @@
 #include <netdb.h>
 #include <unistd.h>
 #include <errno.h>
+#include <arpa/inet.h>
 
 #define SERVER_PORT 12355
 #define BUF_SIZE 4096 
@@ -47,7 +48,7 @@ int main(int argc, char *argv[])
  //   bytes= read(fd, buf, BUF_SIZE);
 //    printf("sending: %s", buf);
 //    send(s, buf, bytes,0);    
-    send(s, (const char *)hello, strlen(hello),0);
+    send(s, (const char *)hello, BUF_SIZE ,0);
 //    printf("send %d\n", bytes);
  //   if (bytes <= 0) break;
 //  }
