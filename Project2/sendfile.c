@@ -31,7 +31,7 @@ int main(int argc, char *argv[])
   
   if (argc != 3) fatal("Usage: sendfile <recv-host> <recv-port>");
   h = gethostbyname(argv[1]);
-  port = strtol(argv[1], NULL, 10);
+  port = strtol(argv[2], NULL, 10);
 
   s=socket(AF_INET, SOCK_DGRAM, 0);
   if (s<0) fatal("socket failed");
