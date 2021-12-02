@@ -23,7 +23,6 @@ int main(int argc, char *argv[])
   char buf[BUF_SIZE]; 
   struct hostent *h;
   struct sockaddr_in servAddr;
-  struct sockaddr_in cliAddr;
   unsigned int len;
   
   if (argc != 3) fatal("Usage: client server-name file-name");
@@ -37,12 +36,12 @@ int main(int argc, char *argv[])
   memcpy(&servAddr.sin_addr.s_addr, h->h_addr, h->h_length);
   servAddr.sin_port= htons(SERVER_PORT);
 
- len = sizeof(cliAddr);
-  w = sendto(s, argv[2], strlen(argv[2])+1, 0, (struct sockaddr *) &cliAddr, len);
+ len = sizeof(servAddr);
+  w = sendto(s, argv[2], strlen(argv[2])+1, 0, (struct sockaddr *) &servAddr, len);
   if(w < 0) fatal("send failed");
   
   while (1) {
-    bytes = recvfrom(s,buf, BUF_SIZE,0, (struct sockaddr *) &cliAddr, &len);
+    bytes = recvfrom(s,buf, BUF_SIZE,0, (struct sockaddr *) &servAddr, &len);
 //    printf("receiving: %s", buf);
 //    printf("recv %d\n", bytes);
     if (bytes <= 0) exit(0);
