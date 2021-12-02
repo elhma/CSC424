@@ -35,7 +35,7 @@ int main(int argc, char *argv[])
   
   memset(&servAddr, 0, sizeof(servAddr));
   servAddr.sin_family= AF_INET;
-  servAddr.sin_addr.s_addr =htonl(INADDR_ANY);
+  memcpy(&servAddr.sin_addr.s_addr, h->h_addr, h->h_length);
   servAddr.sin_port = htons(port);
 
   s=socket(AF_INET, SOCK_DGRAM, 0);
@@ -46,8 +46,6 @@ int main(int argc, char *argv[])
   if (b< 0) fatal("bind failed");
   
   len = sizeof(cliAddr);
-  memcpy(&cliAddr.sin_addr.s_addr, h->h_addr, h->h_length);
-  
   r = recvfrom(s, buf, BUF_SIZE,0, (struct sockaddr *) &cliAddr, &len);
   if(r < 0) fatal("recv failed");
 
