@@ -39,7 +39,7 @@ int main(int argc, char *argv[])
   b=bind(s, (struct sockaddr*) &servAddr, sizeof(servAddr)); 
   if (b< 0) fatal("bind failed");
   
-  r = recvfrom(s, buf, BUF_SIZE,0, (struct sockaddr *) &cliAddr, &(sizeof(cliAddr)));
+  r = recvfrom(s, buf, BUF_SIZE,0, (struct sockaddr *) &cliAddr, &sizeof(cliAddr));
   if(r < 0) fatal("recv failed");
 
   fd = open(buf, O_RDONLY);
@@ -48,7 +48,7 @@ int main(int argc, char *argv[])
  while (1) {
    bytes= read(fd, buf, BUF_SIZE);
    printf("sending: %s", buf);
-   sendto(s, buf, bytes,0, (struct sockaddr *) &cliAddr, &(sizeof(cliAddr)));    
+   sendto(s, buf, bytes,0, (struct sockaddr *) &cliAddr, &sizeof(cliAddr));    
    printf("send %d\n", bytes);
    if (bytes <= 0) break;
  }
