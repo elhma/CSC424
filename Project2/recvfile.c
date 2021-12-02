@@ -33,7 +33,7 @@ int main(int argc, char *argv[])
   
   memset(&servAddr, 0, sizeof(servAddr));
   servAddr.sin_family= AF_INET;
-  servaddr.sin_addr.s_addr = INADDR_ANY;
+  servAddr.sin_addr.s_addr = INADDR_ANY;
   servAddr.sin_port= htons(port);
 
  len = sizeof(servAddr);
