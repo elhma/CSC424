@@ -25,20 +25,19 @@ int main(int argc, char *argv[])
   struct sockaddr_in servAddr;
   unsigned int len;
   
-  if (argc != 4) fatal("Usage: sendfile <recv-host> <recv-port> <filename>");
-  h = gethostbyname(argv[1]);
-  port = strtol(argv[2], NULL, 10);
+  if (argc != 4) fatal("Usage: recvfile <recv-port> <filename>");
+  port = strtol(argv[1], NULL, 10);
   
   s=socket(AF_INET, SOCK_DGRAM, 0);
   if (s <0) fatal("socket");
   
   memset(&servAddr, 0, sizeof(servAddr));
   servAddr.sin_family= AF_INET;
-  memcpy(&servAddr.sin_addr.s_addr, h->h_addr, h->h_length);
+  servaddr.sin_addr.s_addr = INADDR_ANY;
   servAddr.sin_port= htons(port);
 
  len = sizeof(servAddr);
-  w = sendto(s, argv[3], strlen(argv[3])+1, 0, (struct sockaddr *) &servAddr, len);
+  w = sendto(s, argv[2], strlen(argv[2])+1, 0, (struct sockaddr *) &servAddr, len);
   if(w < 0) fatal("send failed");
   
   while (1) {
