@@ -32,7 +32,7 @@ int main(int argc, char *argv[])
   s=socket(AF_INET, SOCK_DGRAM, 0);
   if (s <0) fatal("socket");
   
-  memset(&serAddr, 0, sizeof(servAddr));
+  memset(&servAddr, 0, sizeof(servAddr));
   servAddr.sin_family= AF_INET;
   memcpy(&servAddr.sin_addr.s_addr, h->h_addr, h->h_length);
   servAddr.sin_port= htons(SERVER_PORT);
