@@ -40,6 +40,7 @@ int main(int argc, char *argv[])
   while (1) {
     r = recv(s, buf, BUF_SIZE,0);
     if(r < 0) fatal("recv failed");
+    printf("%d", r);
     
     fd = open(buf, O_RDONLY);
     if (fd < 0) fatal ("open failed");
