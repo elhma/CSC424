@@ -22,16 +22,19 @@ void fatal(char *string)
 
 int main(int argc, char *argv[])
 {
-  int s, b, c, l, fd, bytes, on, r = 1;
+  int s, b, c, l, fd, bytes, on, r, port = 1;
   char buf[BUF_SIZE];
   struct sockaddr_in servAddr;
   struct sockaddr_in cliAddr;
   unsigned int len;
   
+  if (argc != 2) fatal("Usage: recvfile <recv-port>");
+  port = strtol(argv[1], NULL, 10);
+  
   memset(&servAddr, 0, sizeof(servAddr));
   servAddr.sin_family= AF_INET;
   servAddr.sin_addr.s_addr =htonl(INADDR_ANY);
-  servAddr.sin_port = htons(SERVER_PORT);
+  servAddr.sin_port = htons(port);
 
   s=socket(AF_INET, SOCK_DGRAM, 0);
   if (s<0) fatal("socket failed");
