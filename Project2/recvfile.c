@@ -18,7 +18,7 @@ void fatal(char *string)
 
 int main(int argc, char **argv)
 {
-  int c, s, w, bytes;
+  int b, c, s, w, bytes;
   char buf[BUF_SIZE]; 
   struct hostent *h;
   struct sockaddr_in channel;
@@ -34,6 +34,9 @@ int main(int argc, char **argv)
   memcpy(&channel.sin_addr.s_addr, h->h_addr, h->h_length);
   channel.sin_port= htons(SERVER_PORT);
 
+  b=bind(s, (struct sockaddr*) &channel, sizeof(channel)); 
+  if (b< 0) fatal("bind failed");
+  
   c=connect(s, (struct sockaddr*) &channel, sizeof(channel)); 
   if (c< 0) fatal("connect failed");
 
