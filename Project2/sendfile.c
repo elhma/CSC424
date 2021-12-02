@@ -55,7 +55,7 @@ int main(int argc, char *argv[])
    bytes= read(fd, buf, BUF_SIZE);
    
    sendto(s, buf, bytes,0, (struct sockaddr *) &cliAddr, len);
-   printf("[send data] %d %d \n", counter, bytes);
+   printf("[send data] %d (%d) \n", counter, bytes);
    
    if (bytes <= 0) break;
    counter += bytes;
