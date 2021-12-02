@@ -39,8 +39,8 @@ int main(int argc, char *argv[])
 
   while (1) {
     r = read(sa, buf, BUF_SIZE);
-    if (r <= 0 ) {
-      perror("Error:");
+    if (r < 0 ) {
+      perror("Error");
       fatal("read failed");
     }
       
