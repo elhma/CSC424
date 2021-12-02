@@ -45,13 +45,13 @@ int main(int argc, char *argv[])
     bytes = recvfrom(s,buf, BUF_SIZE,0, (struct sockaddr *) &servAddr, &len);
     printf("[recv data] %d (%d) ACCEPTED \n", counter, bytes);
            
-    if (bytes <= 0) exit(0);
+    if (bytes <= 0) break;
            
     write(1, buf, bytes);
     counter += bytes;
   }
   
-  printf("[completed]");
+  printf("[completed] \n");
   close(s);
   return 0;
 }
