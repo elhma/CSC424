@@ -18,21 +18,17 @@ void fatal(char *string)
 
 int main(int argc, char **argv)
 {
-  int c, s, w, bytes;
+  int c, s, bytes;
   char buf[BUF_SIZE]; 
   struct hostent *h;
   struct sockaddr_in channel;
 
   if (argc != 3) fatal("Usage: client server-name file-name");
   h = gethostbyname(argv[1]); 
-
-  if (h==NULL) {
-    printf("%d",h_errno);
-    fatal("gethostbyname failed");
-  }
   
   s=socket(PF_INET, SOCK_DGRAM, 0);
   if (s <0) fatal("socket");
+  
   memset(&channel, 0, sizeof(channel));
   channel.sin_family= AF_INET;
   memcpy(&channel.sin_addr.s_addr, h->h_addr, h->h_length);
@@ -49,5 +45,4 @@ int main(int argc, char **argv)
     write(1, buf, bytes);
   }
   
-    printf("worked!!");
 }
