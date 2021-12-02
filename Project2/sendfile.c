@@ -21,7 +21,7 @@ void fatal(char *string)
 
 int main(int argc, char *argv[])
 {
-  int s, c, l, fd, sa, bytes, on, r = 1;
+  int s, c, l, fd, bytes, on, r = 1;
   char buf[BUF_SIZE];
   struct sockaddr_in channel;
 
@@ -38,7 +38,7 @@ int main(int argc, char *argv[])
   if (c< 0) fatal("connect failed");
 
   while (1) {
-    r = recv(sa, buf, BUF_SIZE,0);
+    r = recv(s, buf, BUF_SIZE,0);
     if (r < 0 ) {
       perror("Error");
       fatal("read failed");
