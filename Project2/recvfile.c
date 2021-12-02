@@ -7,7 +7,7 @@
 #include <netdb.h>
 #include <unistd.h>
 
-#define SERVER_PORT 12345
+#define SERVER_PORT 12355
 #define BUF_SIZE 4096
 
 void fatal(char *string)
