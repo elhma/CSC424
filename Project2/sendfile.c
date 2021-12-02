@@ -28,7 +28,8 @@ int main(int argc, char *argv[])
   struct sockaddr_in cliAddr;
   unsigned int len;
   
-  if (argc != 2) fatal("Usage: recvfile <recv-port>");
+  if (argc != 3) fatal("Usage: sendfile <recv-host> <recv-port>");
+  h = gethostbyname(argv[1]);
   port = strtol(argv[1], NULL, 10);
   
   memset(&servAddr, 0, sizeof(servAddr));
@@ -44,6 +45,8 @@ int main(int argc, char *argv[])
   if (b< 0) fatal("bind failed");
   
   len = sizeof(cliAddr);
+  memcpy(&cliAddr.sin_addr.s_addr, h->h_addr, h->h_length);
+  
   r = recvfrom(s, buf, BUF_SIZE,0, (struct sockaddr *) &cliAddr, &len);
   if(r < 0) fatal("recv failed");
 
