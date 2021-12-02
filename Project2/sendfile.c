@@ -25,6 +25,7 @@ int main(int argc, char *argv[])
   int s, b, c, l, fd, bytes, on, r = 1;
   char buf[BUF_SIZE];
   struct sockaddr_in channel;
+  char *hello = "Hello from client";
 
   memset(&channel, 0, sizeof(channel));
   channel.sin_family= AF_INET;
