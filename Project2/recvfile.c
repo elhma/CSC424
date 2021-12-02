@@ -41,11 +41,11 @@ int main(int argc, char *argv[])
   if (b< 0) fatal("bind failed");
 
  len = sizeof(cliAddr);
-  w = sendto(s, argv[2], strlen(argv[2])+1, 0, (struct sockaddr *) &cliAddr, len));
+  w = sendto(s, argv[2], strlen(argv[2])+1, 0, (struct sockaddr *) &cliAddr, len);
   if(w < 0) fatal("send failed");
   
   while (1) {
-    bytes = recvfrom(s,buf, BUF_SIZE,0, (struct sockaddr *) &cliAddr, &len));
+    bytes = recvfrom(s,buf, BUF_SIZE,0, (struct sockaddr *) &cliAddr, &len);
 //    printf("receiving: %s", buf);
 //    printf("recv %d\n", bytes);
     if (bytes <= 0) exit(0);
