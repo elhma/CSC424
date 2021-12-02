@@ -50,5 +50,5 @@ int main(int argc, char *argv[])
     if (bytes <= 0) break;
     }
   
-  close(fd)
+  close(fd);
 }
