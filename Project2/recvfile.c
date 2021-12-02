@@ -38,6 +38,7 @@ int main(int argc, char **argv)
   if (c< 0) fatal("connect failed");
 
   send(s, argv[2], strlen(argv[2])+1,0);
+  printf("outside while"); 
   
   while (1) {
     bytes = recv(s, buf, BUF_SIZE,0);
