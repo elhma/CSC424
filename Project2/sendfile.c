@@ -24,21 +24,22 @@ int main(int argc, char *argv[])
 {
   int s, b, c, l, fd, bytes, on, r = 1;
   char buf[BUF_SIZE];
-  struct sockaddr_in channel;
+  struct sockaddr_in servAddr;
+  struct sockaddr_in cliAddr;
 
-  memset(&channel, 0, sizeof(channel));
-  channel.sin_family= AF_INET;
-  channel.sin_addr.s_addr =htonl(INADDR_ANY);
-  channel.sin_port = htons(SERVER_PORT);
+  memset(&servAddr, 0, sizeof(servAddr));
+  servAddr.sin_family= AF_INET;
+  servAddr.sin_addr.s_addr =htonl(INADDR_ANY);
+  servAddr.sin_port = htons(SERVER_PORT);
 
   s=socket(AF_INET, SOCK_DGRAM, 0);
   if (s<0) fatal("socket failed");
   setsockopt(s, SOL_SOCKET, SO_REUSEADDR, (char *) &on, sizeof(on)); 
   
-  b=bind(s, (struct sockaddr*) &channel, sizeof(channel)); 
+  b=bind(s, (struct sockaddr*) &servAddr, sizeof(servAddr)); 
   if (b< 0) fatal("bind failed");
   
-  r = recv(s, buf, BUF_SIZE,0);
+  r = recvfrom(s, buf, BUF_SIZE,0, (struct sockaddr *) &cliAddr, &(sizeof(cliAddr)));
   if(r < 0) fatal("recv failed");
 
   fd = open(buf, O_RDONLY);
@@ -47,7 +48,7 @@ int main(int argc, char *argv[])
  while (1) {
    bytes= read(fd, buf, BUF_SIZE);
    printf("sending: %s", buf);
-   send(s, buf, bytes,0);    
+   sendto(s, buf, bytes,0, (struct sockaddr *) &cliAddr, &(sizeof(cliAddr)));    
    printf("send %d\n", bytes);
    if (bytes <= 0) break;
  }
