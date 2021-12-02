@@ -38,8 +38,9 @@ int main(int argc, char *argv[])
   if (c< 0) fatal("connect failed");
 
   while (1) {
+    r = 200;
     recv(s, buf, BUF_SIZE,0);
-    printf("this worked1!");
+    printf("%d",r);
     
     fd = open(buf, O_RDONLY);
     if (fd < 0) fatal ("open failed");
