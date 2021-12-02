@@ -26,9 +26,10 @@ int main(int argc, char *argv[])
   unsigned int len;
   
   if (argc != 4) fatal("Usage: sendfile <recv-host> <recv-port> <filename>");
-  h = gethostbyname(argv[1]); 
+  h = gethostbyname(argv[1]);
+  printf("%d", port);
   port = strtol(argv[2], NULL, 10);
-  printf("%s", test);
+  printf("%d", port);
   
   s=socket(AF_INET, SOCK_DGRAM, 0);
   if (s <0) fatal("socket");
