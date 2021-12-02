@@ -25,7 +25,7 @@ int main(int argc, char *argv[])
   struct sockaddr_in servAddr;
   unsigned int len;
   
-  if (argc != 4) fatal("Usage: recvfile <recv-port> <filename>");
+  if (argc != 3) fatal("Usage: recvfile <recv-port> <filename>");
   port = strtol(argv[1], NULL, 10);
   
   s=socket(AF_INET, SOCK_DGRAM, 0);
