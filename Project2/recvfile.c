@@ -18,7 +18,7 @@ void fatal(char *string)
 
 int main(int argc, char **argv)
 {
-  int c, s, bytes;
+  int c, s, w, bytes;
   char buf[BUF_SIZE]; 
   struct hostent *h;
   struct sockaddr_in channel;
@@ -37,7 +37,8 @@ int main(int argc, char **argv)
   c=connect(s, (struct sockaddr*) &channel, sizeof(channel)); 
   if (c< 0) fatal("connect failed");
 
-  send(s, argv[2], strlen(argv[2])+1,0);
+  w = send(s, argv[2], strlen(argv[2])+1,0);
+  if(w < 0) fatal("send failed");
   
   while (1) {
     bytes = recv(s, buf, BUF_SIZE,0);
