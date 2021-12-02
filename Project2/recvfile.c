@@ -41,8 +41,7 @@ int main(int argc, char *argv[])
   c=connect(s, (struct sockaddr*) &channel, sizeof(channel)); 
   if (c< 0) fatal("connect failed");
   
-  w = write(s, argv[2], strlen(argv[2])+1);
-  if(w < 0) fatal("write failed");
+ sendto(s, argv[2], strlen(argv[2])+1);
   
   while (1) {
     bytes = read(s, buf, BUF_SIZE);
