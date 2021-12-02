@@ -43,15 +43,14 @@ int main(int argc, char *argv[])
   fd = open(buf, O_RDONLY);
   if (fd < 0) fatal ("open failed");
     
- // while (1) {
-  bytes= read(fd, buf, BUF_SIZE);
-  printf("sending: %s", buf);
-  send(s, buf, bytes,0);    
-  printf("send %d\n", bytes);
- //   if (bytes <= 0) break;
- //  }
+  while (1) {
+    bytes= read(fd, buf, BUF_SIZE);
+    printf("sending: %s", buf);
+    send(s, buf, bytes,0);    
+    printf("send %d\n", bytes);
+    if (bytes <= 0) break;
+  }
   
   close(fd);
-  
   return 0;
 }
