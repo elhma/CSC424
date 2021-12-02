@@ -49,9 +49,7 @@ int main(int argc, char *argv[])
     
  while (1) {
    bytes= read(fd, buf, BUF_SIZE);
-   printf("sending: %s", buf);
    sendto(s, buf, bytes,0, (struct sockaddr *) &cliAddr, len);    
-   printf("send %d\n", bytes);
    if (bytes <= 0) break;
  }
   
