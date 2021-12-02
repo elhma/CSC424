@@ -51,6 +51,7 @@ int main(int argc, char *argv[])
     counter += bytes;
   }
   
+  printf("[completed]");
   close(s);
   return 0;
 }
