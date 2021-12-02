@@ -19,14 +19,16 @@ void fatal(char *string)
 
 int main(int argc, char *argv[])
 {
-  int b, s, w, bytes = 1;
+  int b, s, w, bytes, port = 1;
   char buf[BUF_SIZE]; 
   struct hostent *h;
   struct sockaddr_in servAddr;
   unsigned int len;
   
-  if (argc != 3) fatal("Usage: client server-name file-name");
+  if (argc != 4) fatal("Usage: sendfile <recv-host> <recv-port> <filename>");
   h = gethostbyname(argv[1]); 
+  port = strtol(argv[2], NULL, 10);
+  printf("%d", port);
   
   s=socket(AF_INET, SOCK_DGRAM, 0);
   if (s <0) fatal("socket");
@@ -37,7 +39,7 @@ int main(int argc, char *argv[])
   servAddr.sin_port= htons(SERVER_PORT);
 
  len = sizeof(servAddr);
-  w = sendto(s, argv[2], strlen(argv[2])+1, 0, (struct sockaddr *) &servAddr, len);
+  w = sendto(s, argv[3], strlen(argv[3])+1, 0, (struct sockaddr *) &servAddr, len);
   if(w < 0) fatal("send failed");
   
   while (1) {
