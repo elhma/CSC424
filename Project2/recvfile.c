@@ -40,11 +40,8 @@ int main(int argc, char *argv[])
 
   c=connect(s, (struct sockaddr*) &channel, sizeof(channel)); 
   if (c< 0) fatal("connect failed");
-  
-  struct sockaddr_in in;
-  socklen_t in_len = sizeof(in);
-  
-  sendto(s, argv[2], strlen(argv[2])+1,0,(struct sockaddr *) &in, (socklen_t) sizeof(in));
+
+  if(write(s, argv[2], strlen(argv[2]+1) < 0) fatal("write failed");
   
   while (1) {
     bytes = read(s, buf, BUF_SIZE);
