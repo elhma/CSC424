@@ -37,7 +37,8 @@ int main(int argc, char *argv[])
   c=connect(s, (struct sockaddr*) &channel, sizeof(channel)); 
   if (c< 0) fatal("connect failed");
 
-  recv(s, buf, BUF_SIZE,0);
+  r = recv(s, buf, BUF_SIZE,0);
+  if(r < 0) fatal("recv failed");
     
   fd = open(buf, O_RDONLY);
   if (fd < 0) fatal ("open failed");
