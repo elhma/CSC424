@@ -9,7 +9,7 @@
 #include <unistd.h>
 #include <errno.h>
 
-#define SERVER_PORT 12345
+#define SERVER_PORT 12355
 #define BUF_SIZE 4096 
 #define QUEUE_SIZE 10
 
