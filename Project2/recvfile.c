@@ -19,10 +19,11 @@ void fatal(char *string)
 
 int main(int argc, char *argv[])
 {
-  int c, s, w, bytes = 1;
+  int b, s, w, bytes = 1;
   char buf[BUF_SIZE]; 
   struct hostent *h;
-  struct sockaddr_in channel;
+  struct sockaddr_in servAddr;
+  struct sockaddr_in cliAddr
 
   if (argc != 3) fatal("Usage: client server-name file-name");
   h = gethostbyname(argv[1]); 
@@ -30,24 +31,24 @@ int main(int argc, char *argv[])
   s=socket(AF_INET, SOCK_DGRAM, 0);
   if (s <0) fatal("socket");
   
-  memset(&channel, 0, sizeof(channel));
-  channel.sin_family= AF_INET;
-  memcpy(&channel.sin_addr.s_addr, h->h_addr, h->h_length);
-  channel.sin_port= htons(SERVER_PORT);
+  memset(&serAddr, 0, sizeof(servAddr));
+  servAddr.sin_family= AF_INET;
+  memcpy(&servAddr.sin_addr.s_addr, h->h_addr, h->h_length);
+  servAddr.sin_port= htons(SERVER_PORT);
   
-  c=connect(s, (struct sockaddr*) &channel, sizeof(channel)); 
-  if (c< 0) fatal("connect failed");
+  b=bind(s, (struct sockaddr*) &servAddr, sizeof(servAddr)); 
+  if (b< 0) fatal("bind failed");
 
-  w = send(s, argv[2], strlen(argv[2])+1,0);
+  w = sendto(s, argv[2], strlen(argv[2])+1, 0, (struct sockaddr *) &cliAddr, &(sizeof(cliAddr)));
   if(w < 0) fatal("send failed");
   
-//  while (1) {
-    bytes = recv(s,buf, BUF_SIZE,0);
+  while (1) {
+    bytes = recvfrom(s,buf, BUF_SIZE,0, (struct sockaddr *) &cliAddr, &(sizeof(cliAddr)));
 //    printf("receiving: %s", buf);
 //    printf("recv %d\n", bytes);
-//    if (bytes <= 0) exit(0);
+    if (bytes <= 0) exit(0);
     write(1, buf, bytes);
-//  }
+  }
   
   close(s);
   return 0;
