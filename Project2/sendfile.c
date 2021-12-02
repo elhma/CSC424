@@ -10,7 +10,6 @@
 #include <errno.h>
 #include <arpa/inet.h>
 
-#define SERVER_PORT 12355
 #define BUF_SIZE 4096 
 #define QUEUE_SIZE 10
 
