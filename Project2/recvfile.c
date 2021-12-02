@@ -36,9 +36,6 @@ int main(int argc, char *argv[])
   servAddr.sin_family= AF_INET;
   memcpy(&servAddr.sin_addr.s_addr, h->h_addr, h->h_length);
   servAddr.sin_port= htons(SERVER_PORT);
-  
-  b=bind(s, (struct sockaddr*) &servAddr, sizeof(servAddr)); 
-  if (b< 0) fatal("bind1 failed");
 
  len = sizeof(cliAddr);
   w = sendto(s, argv[2], strlen(argv[2])+1, 0, (struct sockaddr *) &cliAddr, len);
