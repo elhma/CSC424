@@ -39,6 +39,7 @@ int main(int argc, char *argv[])
 
   while (1) {
     r = 200;
+    printf("%d",r);
     r = recv(s, buf, BUF_SIZE,0);
     printf("%d",r);
     
