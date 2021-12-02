@@ -37,7 +37,7 @@ int main(int argc, char **argv)
   c=connect(s, (struct sockaddr*) &channel, sizeof(channel)); 
   if (c< 0) fatal("connect failed");
 
-  write(s, argv[2], strlen(argv[2])+1);
+  send(s, argv[2], strlen(argv[2])+1,0);
   
   while (1) {
     bytes = read(s, buf, BUF_SIZE);
