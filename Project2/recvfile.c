@@ -5,6 +5,7 @@
 #include <sys/socket.h> 
 #include <netinet/in.h> 
 #include <netdb.h>
+#include <arpa/inet.h>
 #include <unistd.h>
 
 #define SERVER_PORT 12355
