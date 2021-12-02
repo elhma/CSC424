@@ -38,7 +38,7 @@ int main(int argc, char *argv[])
   servAddr.sin_port= htons(SERVER_PORT);
   
   b=bind(s, (struct sockaddr*) &servAddr, sizeof(servAddr)); 
-  if (b< 0) fatal("bind failed");
+  if (b< 0) fatal("bind1 failed");
 
  len = sizeof(cliAddr);
   w = sendto(s, argv[2], strlen(argv[2])+1, 0, (struct sockaddr *) &cliAddr, len);
