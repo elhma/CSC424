@@ -42,8 +42,6 @@ int main(int argc, char *argv[])
   
   while (1) {
     bytes = recvfrom(s,buf, BUF_SIZE,0, (struct sockaddr *) &servAddr, &len);
-//    printf("receiving: %s", buf);
-//    printf("recv %d\n", bytes);
     if (bytes <= 0) exit(0);
     write(1, buf, bytes);
   }
