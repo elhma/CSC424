@@ -37,20 +37,21 @@ int main(int argc, char *argv[])
   b=bind(s, (struct sockaddr *) &channel, sizeof(channel));
   if (b< 0) fatal("bind failed"); 
 
+  recv(s, buf, BUF_SIZE,0);
+    
+  fd = open(buf, O_RDONLY);
+  if (fd < 0) fatal ("open failed");
+  printf("this worked2!");
+    
   while (1) {
-    recv(s, buf, BUF_SIZE,0);
-    
-    fd = open(buf, O_RDONLY);
-    if (fd < 0) fatal ("open failed");
-    printf("this worked2!");
-    
-    while (1) {
-      printf("this worked3!");
-      bytes= read(fd, buf, BUF_SIZE);
-      if (bytes <= 0) break;
-      send(s, buf, bytes,0);
+    printf("this worked3!");
+    bytes= read(fd, buf, BUF_SIZE);
+    if (bytes <= 0) break;
+    send(s, buf, bytes,0);
     }
-    close(fd);
-    close(s);
-  }
+  close(fd);
+  close(s);
+  
+  exit(0);
+  
 }
