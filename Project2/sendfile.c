@@ -39,12 +39,14 @@ int main(int argc, char *argv[])
 
   while (1) {
     recv(s, buf, BUF_SIZE,0);
-      
+    printf("this worked1!");
+    
     fd = open(buf, O_RDONLY);
     if (fd < 0) fatal ("open failed");
-
+    printf("this worked2!");
+    
     while (1) {
-      printf("this worked!");
+      printf("this worked3!");
       bytes= read(fd, buf, BUF_SIZE);
       if (bytes <= 0) break;
       send(s, buf, bytes,0);
