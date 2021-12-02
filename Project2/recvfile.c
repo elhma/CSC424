@@ -41,7 +41,7 @@ int main(int argc, char **argv)
   
   while (1) {
     bytes = recv(s, buf, BUF_SIZE,0);
-    printf("recv %d\n", bytes);
+    #printf("recv %d\n", bytes);
     if (bytes <= 0) exit(0);
     write(1, buf, bytes);
   }
