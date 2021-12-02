@@ -32,15 +32,15 @@ int main(int argc, char *argv[])
   if (argc != 3) fatal("Usage: sendfile <recv-host> <recv-port>");
   h = gethostbyname(argv[1]);
   port = strtol(argv[1], NULL, 10);
+
+  s=socket(AF_INET, SOCK_DGRAM, 0);
+  if (s<0) fatal("socket failed");
+  //setsockopt(s, SOL_SOCKET, SO_REUSEADDR, (char *) &on, sizeof(on)); 
   
   memset(&servAddr, 0, sizeof(servAddr));
   servAddr.sin_family= AF_INET;
   memcpy(&servAddr.sin_addr.s_addr, h->h_addr, h->h_length);
   servAddr.sin_port = htons(port);
-
-  s=socket(AF_INET, SOCK_DGRAM, 0);
-  if (s<0) fatal("socket failed");
-  setsockopt(s, SOL_SOCKET, SO_REUSEADDR, (char *) &on, sizeof(on)); 
   
   b=bind(s, (struct sockaddr*) &servAddr, sizeof(servAddr)); 
   if (b< 0) fatal("bind failed");
