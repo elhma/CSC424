@@ -40,16 +40,16 @@ int main(int argc, char *argv[])
   r = recv(s, buf, BUF_SIZE,0);
   if(r < 0) fatal("recv failed");
 
-//   fd = open(buf, O_RDONLY);
-//   if (fd < 0) fatal ("open failed");
+  fd = open(buf, O_RDONLY);
+  if (fd < 0) fatal ("open failed");
     
-//   while (1) {
-//     bytes= read(fd, buf, BUF_SIZE);
-//     printf("send %d\n", bytes);
-//     if (bytes <= 0) break;
-//     send(s, buf, bytes,0);
-//     }
-//   close(fd);
-//   close(s);
+  while (1) {
+    bytes= read(fd, buf, BUF_SIZE);
+    printf("send %d\n", bytes);
+    if (bytes <= 0) break;
+    send(s, buf, bytes,0);
+    }
+  close(fd);
+  close(s);
   
 }
