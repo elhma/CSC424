@@ -10,7 +10,7 @@
 #include <errno.h>
 #include <arpa/inet.h>
 
-#define SERVER_PORT 12355
+#define SERVER_PORT 12345
 #define BUF_SIZE 4096 
 #define QUEUE_SIZE 10
 
@@ -25,7 +25,6 @@ int main(int argc, char *argv[])
   int s, b, c, l, fd, bytes, on, r = 1;
   char buf[BUF_SIZE];
   struct sockaddr_in channel;
-  char *hello = "Hello from client";
 
   memset(&channel, 0, sizeof(channel));
   channel.sin_family= AF_INET;
@@ -45,14 +44,13 @@ int main(int argc, char *argv[])
   fd = open(buf, O_RDONLY);
   if (fd < 0) fatal ("open failed");
     
- // while (1) {
- //   bytes= read(fd, buf, BUF_SIZE);
-//    printf("sending: %s", buf);
-//    send(s, buf, bytes,0);    
-    send(s, (const char *)hello, BUF_SIZE ,0);
-//    printf("send %d\n", bytes);
- //   if (bytes <= 0) break;
-//  }
+ while (1) {
+   bytes= read(fd, buf, BUF_SIZE);
+   printf("sending: %s", buf);
+   send(s, buf, bytes,0);    
+   printf("send %d\n", bytes);
+   if (bytes <= 0) break;
+ }
   
   close(fd);
   return 0;
