@@ -49,4 +49,6 @@ int main(int argc, char *argv[])
     send(s, buf, bytes,0);
     if (bytes <= 0) break;
     }
+  
+  close(fd)
 }
