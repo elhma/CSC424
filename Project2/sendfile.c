@@ -38,7 +38,7 @@ int main(int argc, char *argv[])
   if (b< 0) fatal("bind failed"); 
 
   while (1) {
-    r = read(sa, buf, BUF_SIZE);
+    r = recv(sa, buf, BUF_SIZE,0);
     if (r < 0 ) {
       perror("Error");
       fatal("read failed");
