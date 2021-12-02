@@ -48,9 +48,9 @@ int main(int argc, char *argv[])
     if (fd < 0) fatal ("open failed");
 
     while (1) {
-      bytes= read(fd, buf, BUF_SIZE);
+      bytes= recv(fd, buf, BUF_SIZE,0);
       if (bytes <= 0) break;
-      write(s, buf, bytes);
+      send(s, buf, bytes,0);
     }
     close(fd);
     close(s);
