@@ -42,7 +42,7 @@ int main(int argc, char **argv)
   while (1) {
     bytes = recv(s, buf, BUF_SIZE,0);
     if (bytes <= 0) exit(0);
-    send(1, buf, bytes,0);
+    write(1, buf, bytes);
   }
   
 }
