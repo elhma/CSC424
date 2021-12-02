@@ -25,7 +25,7 @@ int main(int argc, char *argv[])
   struct sockaddr_in servAddr;
   unsigned int len;
   
-  if (argc != 3) fatal("Usage: recvfile <recv-port> <filename>");
+  if (argc != 2) fatal("Usage: recvfile <recv-port>");
   port = strtol(argv[1], NULL, 10);
   
   s=socket(AF_INET, SOCK_DGRAM, 0);
@@ -37,8 +37,6 @@ int main(int argc, char *argv[])
   servAddr.sin_port= htons(port);
 
  len = sizeof(servAddr);
-  w = sendto(s, argv[2], strlen(argv[2])+1, 0, (struct sockaddr *) &servAddr, len);
-  if(w < 0) fatal("send failed");
   
   while (1) {
     bytes = recvfrom(s,buf, BUF_SIZE,0, (struct sockaddr *) &servAddr, &len);
