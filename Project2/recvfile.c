@@ -20,6 +20,7 @@ void fatal(char *string)
 int main(int argc, char *argv[])
 {
   int b, s, w, bytes, port = 1;
+  int counter = 0;
   char buf[BUF_SIZE]; 
   struct hostent *h;
   struct sockaddr_in servAddr;
@@ -43,8 +44,12 @@ int main(int argc, char *argv[])
   
   while (1) {
     bytes = recvfrom(s,buf, BUF_SIZE,0, (struct sockaddr *) &servAddr, &len);
+    printf("[recv data] %d (%d) ACCEPTED", counter, bytes
+           
     if (bytes <= 0) exit(0);
+           
     write(1, buf, bytes);
+    counter += bytes
   }
   
   close(s);
