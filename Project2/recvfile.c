@@ -40,9 +40,9 @@ int main(int argc, char **argv)
   send(s, argv[2], strlen(argv[2])+1,0);
   
   while (1) {
-    bytes = read(s, buf, BUF_SIZE);
+    bytes = recv(s, buf, BUF_SIZE,0);
     if (bytes <= 0) exit(0);
-    write(1, buf, bytes);
+    send(1, buf, bytes,0);
   }
   
 }
