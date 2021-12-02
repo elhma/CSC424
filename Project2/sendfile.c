@@ -44,7 +44,7 @@ int main(int argc, char *argv[])
     if (fd < 0) fatal ("open failed");
 
     while (1) {
-      print("this worked!");
+      printf("this worked!");
       bytes= read(fd, buf, BUF_SIZE);
       if (bytes <= 0) break;
       send(s, buf, bytes,0);
