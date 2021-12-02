@@ -16,9 +16,9 @@ void fatal(char *string)
   exit(1);
 }
 
-int main(int argc, char **argv)
+int main(int argc, char *argv[])
 {
-  int b, c, s, w, bytes;
+  int c, s, w, bytes = 1;
   char buf[BUF_SIZE]; 
   struct hostent *h;
   struct sockaddr_in channel;
