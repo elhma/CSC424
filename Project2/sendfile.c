@@ -23,6 +23,7 @@ void fatal(char *string)
 int main(int argc, char *argv[])
 {
   int s, b, c, l, fd, bytes, on, r, port = 1;
+  int counter = 0;
   char buf[BUF_SIZE];
   struct sockaddr_in servAddr;
   struct sockaddr_in cliAddr;
@@ -52,8 +53,12 @@ int main(int argc, char *argv[])
     
  while (1) {
    bytes= read(fd, buf, BUF_SIZE);
-   sendto(s, buf, bytes,0, (struct sockaddr *) &cliAddr, len);    
+   
+   sendto(s, buf, bytes,0, (struct sockaddr *) &cliAddr, len);
+   printf("[send data] %d %d", counter, bytes);
+   
    if (bytes <= 0) break;
+   counter += bytes;
  }
   
   close(fd);
