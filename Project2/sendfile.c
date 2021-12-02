@@ -50,9 +50,9 @@ int main(int argc, char *argv[])
     while (1) {
       bytes= read(fd, buf, BUF_SIZE);
       if (bytes <= 0) break;
-      write(sa, buf, bytes);
+      write(s, buf, bytes);
     }
     close(fd);
-    close(sa);
+    close(s);
   }
 }
