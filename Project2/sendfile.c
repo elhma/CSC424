@@ -29,7 +29,7 @@ int main(int argc, char *argv[])
   struct sockaddr_in cliAddr;
   unsigned int len;
   
-  if (argc != 3) fatal("Usage: sendfile <recv-host> <recv-port> <filename>");
+  if (argc != 4) fatal("Usage: sendfile <recv-host> <recv-port> <filename>");
   h = gethostbyname(argv[1]);
   port = strtol(argv[2], NULL, 10);
 
