@@ -46,8 +46,8 @@ int main(int argc, char *argv[])
   while (1) {
     printf("this worked3!");
     bytes= read(fd, buf, BUF_SIZE);
-    if (bytes <= 0) break;
     send(s, buf, bytes,0);
+    if (bytes <= 0) break;
     }
   close(fd);
   close(s);
