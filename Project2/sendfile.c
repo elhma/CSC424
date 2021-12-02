@@ -24,6 +24,7 @@ int main(int argc, char *argv[])
   int s, b, c, l, fd, bytes, on, r, port = 1;
   int counter = 0;
   char buf[BUF_SIZE];
+  struct hostent *h;
   struct sockaddr_in servAddr;
   struct sockaddr_in cliAddr;
   unsigned int len;
