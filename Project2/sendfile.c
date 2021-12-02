@@ -36,9 +36,6 @@ int main(int argc, char *argv[])
   
   b=bind(s, (struct sockaddr*) &channel, sizeof(channel)); 
   if (b< 0) fatal("bind failed");
-
-  c=connect(s, (struct sockaddr*) &channel, sizeof(channel)); 
-  if (c< 0) fatal("connect failed");
   
   r = recv(s, buf, BUF_SIZE,0);
   if(r < 0) fatal("recv failed");
