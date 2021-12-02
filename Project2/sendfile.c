@@ -49,7 +49,6 @@ int main(int argc, char *argv[])
 
     while (1) {
       bytes= read(fd, buf, BUF_SIZE);
-      printf("%s", buf);
       if (bytes <= 0) break;
       send(s, buf, bytes,0);
     }
