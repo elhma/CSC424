@@ -26,7 +26,7 @@ int main(int argc, char *argv[])
   char buf[BUF_SIZE];
   struct sockaddr_in servAddr;
   struct sockaddr_in cliAddr;
-  int len = sizeof(cliAddr);
+  unsigned int len;
   
   memset(&servAddr, 0, sizeof(servAddr));
   servAddr.sin_family= AF_INET;
@@ -40,6 +40,7 @@ int main(int argc, char *argv[])
   b=bind(s, (struct sockaddr*) &servAddr, sizeof(servAddr)); 
   if (b< 0) fatal("bind failed");
   
+  len = sizeof(cliAddr);
   r = recvfrom(s, buf, BUF_SIZE,0, (struct sockaddr *) &cliAddr, &len);
   if(r < 0) fatal("recv failed");
 
