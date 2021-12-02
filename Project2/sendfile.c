@@ -21,7 +21,7 @@ void fatal(char *string)
 
 int main(int argc, char *argv[])
 {
-  int s, b, l, fd, sa, bytes, on, r = 1;
+  int s, c, l, fd, sa, bytes, on, r = 1;
   char buf[BUF_SIZE];
   struct sockaddr_in channel;
 
@@ -34,8 +34,8 @@ int main(int argc, char *argv[])
   if (s<0) fatal("socket failed");
   setsockopt(s, SOL_SOCKET, SO_REUSEADDR, (char *) &on, sizeof(on)); 
   
-  b=bind(s, (struct sockaddr *) &channel, sizeof(channel));
-  if (b< 0) fatal("bind failed"); 
+  c=connect(s, (struct sockaddr*) &channel, sizeof(channel)); 
+  if (c< 0) fatal("connect failed");
 
   while (1) {
     r = recv(sa, buf, BUF_SIZE,0);
