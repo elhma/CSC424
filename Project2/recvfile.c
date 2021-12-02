@@ -41,9 +41,9 @@ int main(int argc, char *argv[])
   if(w < 0) fatal("send failed");
   
 //  while (1) {
-    bytes = recv(s,(char *) buf, BUF_SIZE,0);
-    printf("receiving: %s", buf);
-    printf("recv %d\n", bytes);
+    bytes = recv(s,buf, BUF_SIZE,0);
+//    printf("receiving: %s", buf);
+//    printf("recv %d\n", bytes);
 //    if (bytes <= 0) exit(0);
     write(1, buf, bytes);
 //  }
