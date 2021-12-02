@@ -38,16 +38,13 @@ int main(int argc, char *argv[])
   if (c< 0) fatal("connect failed");
 
   while (1) {
-    r = recv(s, buf, BUF_SIZE,0);
-    if (r < 0 ) {
-      perror("Error");
-      fatal("read failed");
-    }
+    recv(s, buf, BUF_SIZE,0);
       
     fd = open(buf, O_RDONLY);
     if (fd < 0) fatal ("open failed");
 
     while (1) {
+      print("this worked!");
       bytes= read(fd, buf, BUF_SIZE);
       if (bytes <= 0) break;
       send(s, buf, bytes,0);
