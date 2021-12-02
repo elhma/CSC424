@@ -39,7 +39,7 @@ int main(int argc, char *argv[])
   
   r = recv(s, buf, BUF_SIZE,0);
   if(r < 0) fatal("recv failed");
-  printf(buf);
+  printf("%s", buf);
   fd = open(buf, O_RDONLY);
   if (fd < 0) fatal ("open failed");
     
