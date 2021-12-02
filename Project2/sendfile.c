@@ -61,7 +61,7 @@ int main(int argc, char *argv[])
  }
   
   close(fd);
-  printf("[completed]");
+  printf("[completed] \n");
   
   return 0;
 }
