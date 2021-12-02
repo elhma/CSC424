@@ -38,9 +38,7 @@ int main(int argc, char *argv[])
   if (b< 0) fatal("bind failed"); 
 
   while (1) {
-    r = recv(s, buf, BUF_SIZE,0);
-    if(r < 0) fatal("recv failed");
-    printf("%d", r);
+    recv(s, buf, BUF_SIZE,0);
     
     fd = open(buf, O_RDONLY);
     if (fd < 0) fatal ("open failed");
