@@ -27,9 +27,7 @@ int main(int argc, char *argv[])
   
   if (argc != 4) fatal("Usage: sendfile <recv-host> <recv-port> <filename>");
   h = gethostbyname(argv[1]);
-  printf("%d", port);
   port = strtol(argv[2], NULL, 10);
-  printf("%d", port);
   
   s=socket(AF_INET, SOCK_DGRAM, 0);
   if (s <0) fatal("socket");
@@ -37,7 +35,7 @@ int main(int argc, char *argv[])
   memset(&servAddr, 0, sizeof(servAddr));
   servAddr.sin_family= AF_INET;
   memcpy(&servAddr.sin_addr.s_addr, h->h_addr, h->h_length);
-  servAddr.sin_port= htons(SERVER_PORT);
+  servAddr.sin_port= htons(port);
 
  len = sizeof(servAddr);
   w = sendto(s, argv[3], strlen(argv[3])+1, 0, (struct sockaddr *) &servAddr, len);
