@@ -29,7 +29,7 @@ int main(int argc, char *argv[])
   struct sockaddr_in cliAddr;
   unsigned int len;
   
-  if (argc != 3) fatal("Usage: sendfile <recv-host> <recv-port>");
+  if (argc != 3) fatal("Usage: sendfile <recv-host> <recv-port> <filename>");
   h = gethostbyname(argv[1]);
   port = strtol(argv[2], NULL, 10);
 
@@ -49,7 +49,7 @@ int main(int argc, char *argv[])
   r = recvfrom(s, buf, BUF_SIZE,0, (struct sockaddr *) &cliAddr, &len);
   if(r < 0) fatal("recv failed");
 
-  fd = open(buf, O_RDONLY);
+  fd = open(argv[3], O_RDONLY);
   if (fd < 0) fatal ("open failed");
     
  while (1) {
