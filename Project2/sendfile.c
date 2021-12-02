@@ -21,7 +21,7 @@ void fatal(char *string)
 
 int main(int argc, char *argv[])
 {
-  int s, b, l, fd, bytes, on, r = 1;
+  int s, b, c, l, fd, bytes, on, r = 1;
   char buf[BUF_SIZE];
   struct sockaddr_in channel;
 
@@ -37,6 +37,9 @@ int main(int argc, char *argv[])
   b=bind(s, (struct sockaddr*) &channel, sizeof(channel)); 
   if (b< 0) fatal("bind failed");
 
+  c=connect(s, (struct sockaddr*) &channel, sizeof(channel)); 
+  if (c< 0) fatal("connect failed");
+  
   r = recv(s, buf, BUF_SIZE,0);
   if(r < 0) fatal("recv failed");
     
