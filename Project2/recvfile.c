@@ -44,7 +44,7 @@ int main(int argc, char *argv[])
   
   while (1) {
     bytes = recvfrom(s,buf, BUF_SIZE,0, (struct sockaddr *) &servAddr, &len);
-    printf("[recv data] %d (%d) ACCEPTED", counter, bytes);
+    printf("[recv data] %d (%d) ACCEPTED \n", counter, bytes);
            
     if (bytes <= 0) exit(0);
            
