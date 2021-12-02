@@ -50,6 +50,5 @@ int main(int argc, char *argv[])
     send(s, buf, bytes,0);
     }
   close(fd);
-  close(s);
   
 }
