@@ -59,7 +59,7 @@ int main(int argc, char *argv[])
   sawFrame send;
   send.seq = 0;
   int ack = 0;
-  netlong recvstr;
+  int recvstr;
   int recvack;
   
   while (1) {
