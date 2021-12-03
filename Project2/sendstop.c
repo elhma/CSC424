@@ -56,16 +56,31 @@ int main(int argc, char *argv[])
   fd = open(argv[3], O_RDONLY);
   if (fd < 0) fatal ("open failed");
     
-  int ack = 1;
   sawFrame send;
+  send.seq = 0;
+  int ack = 0;
+  int recvack;
+  
   while (1) {
-    if(ack == 1){
+    if((ack == 0 && send.seq == 0) || (ack == 1 && send.seq == 1)){
       bytes= read(fd, buf, BUF_SIZE);
       strcpy(send.data, buf);
+      send.seq = (send.seq+1)%2
+      
       sendto(s, &send, sizeof(sawFrame),0, (struct sockaddr *) &cliAddr, len);
- //     printf("[send data] %d (%d) \n", counter, bytes);
+      printf("[send data] %d (%d) \n", counter, bytes);
     }
-    printf("[send data] %d (%d) \n", counter, bytes);
+    
+    r = recvfrom(s,recvack,sizeof(int),0,(struct sockaddr *) &cliAddr, &len);
+    
+    if(recvack == send.seq) {
+      printf("[recvack] %d", recvack);
+      ack = recvack;
+    }
+    else{
+      printf("Didn't work");
+    }
+    
     if (bytes <= 0) break;
     counter += bytes;
   }
