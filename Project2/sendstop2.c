@@ -55,7 +55,7 @@ int main(int argc, char *argv[])
    
    recvfrom(s, &recvack, sizeof(recvack), 0, (struct sockaddr *) &servAddr, &len);
    ack = ntohl(recvack);
-   print("[recvack] %d", ack);
+   printf("[recvack] %d", ack);
    
    if (bytes <= 0) break;
    counter += bytes;
