@@ -18,14 +18,14 @@ void fatal(char *string)
 
 int main(int argc, char *argv[])
 {
-  int b, s, w, bytes, port = 1;
+  int s, w, bytes, port = 1;
   int counter = 0;
   char buf[BUF_SIZE]; 
   struct hostent *h;
   struct sockaddr_in servAddr;
   unsigned int len;
   
-  if (argc != 2) fatal("Usage: recvfile <recv-port>");
+  if (argc != 2) fatal("Usage: %s <recv-port>", argv[0]);
   port = strtol(argv[1], NULL, 10);
   
   s=socket(AF_INET, SOCK_DGRAM, 0);
@@ -36,7 +36,7 @@ int main(int argc, char *argv[])
   servAddr.sin_addr.s_addr = INADDR_ANY;
   servAddr.sin_port= htons(port);
 
- len = sizeof(servAddr);
+  len = sizeof(servAddr);
   w = sendto(s, argv[1], strlen(argv[1])+1, 0, (struct sockaddr *) &servAddr, len);
   if(w < 0) fatal("send failed");
   
