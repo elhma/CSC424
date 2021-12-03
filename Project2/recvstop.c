@@ -52,7 +52,9 @@ int main(int argc, char *argv[])
     printf("[recv data] %d (%d) ACCEPTED \n", counter, bytes);
            
     ack = recv.seq;
-    sendto(s, &ack, sizeof(int), 0, (struct sockaddr *) &servAddr, len);
+    w = sendto(s, &ack, sizeof(int), 0, (struct sockaddr *) &servAddr, len);
+    if(w < 0) fatal("send failed");
+    
     if (bytes <= 0) break;
            
     write(1, recv.data, sizeof(recv.data));
