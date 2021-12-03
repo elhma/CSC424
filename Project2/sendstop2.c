@@ -63,7 +63,7 @@ int main(int argc, char *argv[])
    if(bytes == 0) {
      strcpy(send.data, "");
      send.end = 1;
-     printf("[send data] %d 0 \n", counter);
+     printf("[send data] %d (0) \n", counter);
    }
    else {
      strcpy(send.data, buf);
