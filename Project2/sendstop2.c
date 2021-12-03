@@ -53,7 +53,6 @@ int main(int argc, char *argv[])
  
  sawFrame send;
  send.seq = 0; 
- send.end = 0;
  int ack = 0;
  int recvack;
 
