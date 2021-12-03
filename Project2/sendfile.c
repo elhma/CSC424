@@ -41,8 +41,8 @@ int main(int argc, char *argv[])
   servAddr.sin_port = htons(port);
   
   len = sizeof(servAddr);
-  r = recvfrom(s, buf, BUF_SIZE,0, (struct sockaddr *) &servAddr, &len);
-  if(r < 0) fatal("recv failed");
+//   r = recvfrom(s, buf, BUF_SIZE,0, (struct sockaddr *) &servAddr, &len);
+//   if(r < 0) fatal("recv failed");
   
   fd = open(argv[3], O_RDONLY);
   if (fd < 0) fatal ("open failed");
