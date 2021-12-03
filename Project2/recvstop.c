@@ -28,6 +28,7 @@ int main(int argc, char *argv[])
   char buf[BUF_SIZE]; 
   struct hostent *h;
   struct sockaddr_in servAddr;
+  struct sockaddr_in cliAddr;
   unsigned int len;
   
   if (argc != 2) fatal("Usage: recvfile <recv-port>");
@@ -41,18 +42,18 @@ int main(int argc, char *argv[])
   servAddr.sin_addr.s_addr = INADDR_ANY;
   servAddr.sin_port= htons(port);
 
-  len = sizeof(servAddr);
-  w = sendto(s, argv[1], strlen(argv[1])+1, 0, (struct sockaddr *) &servAddr, len);
+  len = sizeof(cliAddr);
+  w = sendto(s, argv[1], strlen(argv[1])+1, 0, (struct sockaddr *) &cliAddr, len);
   if(w < 0) fatal("send failed");
   
   sawFrame recv;
   long ack;
   while (1) {
-    bytes = recvfrom(s,&recv, sizeof(sawFrame),0, (struct sockaddr *) &servAddr, &len);
+    bytes = recvfrom(s,&recv, sizeof(sawFrame),0, (struct sockaddr *) &cliAddr, &len);
     printf("[recv data] %d (%d) ACCEPTED \n", counter, bytes);
            
     ack = recv.seq;
-    w = sendto(s, &ack, sizeof(int), 0, (struct sockaddr *) &servAddr, len);
+    w = sendto(s, &ack, sizeof(int), 0, (struct sockaddr *) &cliAddr, len);
     if(w < 0) fatal("send failed");
     
     if (bytes <= 0) break;
