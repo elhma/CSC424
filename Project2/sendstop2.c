@@ -58,10 +58,10 @@ int main(int argc, char *argv[])
  while (1) {
  
    bytes= read(fd, buf, BUF_SIZE);
-   strcpy(send.data, buff);
+   strcpy(send.data, buf);
    
    sendto(s, &send, sizeof(sawFrame),0, (struct sockaddr *) &servAddr, len);
-   printf("[send data] %d (%l) \n", counter, sizeof(sawFrame));
+   printf("[send data] %d (%ld) \n", counter, sizeof(sawFrame));
    
    recvfrom(s, &recvack, sizeof(recvack), 0, (struct sockaddr *) &servAddr, &len);
    ack = ntohl(recvack);
