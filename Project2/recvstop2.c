@@ -52,7 +52,7 @@ int main(int argc, char *argv[])
   
   while (1) {
     bytes = recvfrom(s,&recv, sizeof(sawFrame),0, (struct sockaddr *) &cliAddr, &len);
-    printf("[recv data] %d (%ld) ACCEPTED \n", counter, sizeof(sawFrame));
+    printf("[recv data] %d (%ld) ACCEPTED \n", counter, sizeof(recv.data));
     ack = htonl(recv.seq);
            
     sendto(s, &ack, sizeof(ack), 0, (struct sockaddr *) &cliAddr, len);
