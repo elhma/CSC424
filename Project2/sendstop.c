@@ -59,7 +59,7 @@ int main(int argc, char *argv[])
   sawFrame send;
   send.seq = 0;
   int ack = 0;
-  char recvstr[1];
+  netlong recvstr;
   int recvack;
   
   while (1) {
@@ -73,7 +73,7 @@ int main(int argc, char *argv[])
     }
     
     r = recvfrom(s,&recvstr,sizeof(int),0,(struct sockaddr *) &cliAddr, &len);
-    recvack = strtol(recvstr, NULL, 10);
+    recvack = ntohl(recvstr);
     
     if(recvack == send.seq) {
       printf("[recvack] %d", recvack);
