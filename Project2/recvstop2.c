@@ -12,6 +12,7 @@
 
 typedef struct StopAndWaitFrame{
   int seq;
+  int end;
   char data[1024];
 }sawFrame;
 
@@ -48,21 +49,26 @@ int main(int argc, char *argv[])
   len = sizeof(cliAddr);
   
   sawFrame recv;
+  recv.end = 0;
   int ack;
   
   while (1) {
     bytes = recvfrom(s,&recv, sizeof(sawFrame),0, (struct sockaddr *) &cliAddr, &len);
-    printf("[recv data] %d (%ld) ACCEPTED \n", counter, sizeof(recv.data));
-    ack = htonl(recv.seq);
-           
+    
+    ack = htonl(recv.seq);  
     sendto(s, &ack, sizeof(ack), 0, (struct sockaddr *) &cliAddr, len);
-    if (bytes <= 0) break;
-           
+    
+    if (recv.end == 1) {
+      printf("[recv data] %d (0) ACCEPTED \n", counter);
+      printf("[completed] \n");
+      close(s);
+      return 0;
+    }
+      
+    printf("[recv data] %d (%ld) ACCEPTED \n", counter, sizeof(recv.data));
   //  write(1, recv.data, bytes);
-    counter += sizeof(sawFrame);
+    counter += sizeof(recv.data);
   }
   
-  printf("[completed] \n");
-  close(s);
-  return 0;
+
 }
