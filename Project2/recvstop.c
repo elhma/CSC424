@@ -13,7 +13,7 @@
 typedef struct StopAndWaitFrame{
   int seq;
   char data[1024];
-}sawFrame
+}sawFrame;
 
 void fatal(char *string)
 {
