@@ -73,8 +73,11 @@ int main(int argc, char *argv[])
     }
     
     r = recvfrom(s,&recvstr,sizeof(int),0,(struct sockaddr *) &cliAddr, &len);
-    recvack = ntohl(recvstr);
+    if(r<1) printf("failed");
+    else print("received");
     
+    recvack = ntohl(recvstr);
+
     if(recvack == send.seq) {
       printf("[recvack] %d", recvack);
       ack = recvack;
