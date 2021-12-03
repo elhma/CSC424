@@ -41,8 +41,6 @@ int main(int argc, char *argv[])
   servAddr.sin_port = htons(port);
   
   len = sizeof(servAddr);
-//   r = recvfrom(s, buf, BUF_SIZE,0, (struct sockaddr *) &servAddr, &len);
-//   if(r < 0) fatal("recv failed");
   
   fd = open(argv[3], O_RDONLY);
   if (fd < 0) fatal ("open failed");
@@ -55,9 +53,9 @@ int main(int argc, char *argv[])
    sendto(s, buf, bytes,0, (struct sockaddr *) &servAddr, len);
    printf("[send data] %d (%d) \n", counter, bytes);
    
-   recvfrom(s, &recvack, sizeof(recvack), 0, (struct sockaddr *) &servAddr, len);
+   recvfrom(s, &recvack, sizeof(recvack), 0, (struct sockaddr *) &servAddr, &len);
    ack = ntohl(recvack);
-   print("[recvack] %d," ack);
+   print("[recvack] %d", ack);
    
    if (bytes <= 0) break;
    counter += bytes;
