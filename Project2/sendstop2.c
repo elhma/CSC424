@@ -61,7 +61,7 @@ int main(int argc, char *argv[])
    strcpy(send.data, buff);
    
    sendto(s, &send, sizeof(sawFrame),0, (struct sockaddr *) &servAddr, len);
-   printf("[send data] %d (%d) \n", counter, sizeof(sawFrame));
+   printf("[send data] %d (%l) \n", counter, sizeof(sawFrame));
    
    recvfrom(s, &recvack, sizeof(recvack), 0, (struct sockaddr *) &servAddr, &len);
    ack = ntohl(recvack);
