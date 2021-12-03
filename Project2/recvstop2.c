@@ -52,14 +52,14 @@ int main(int argc, char *argv[])
   
   while (1) {
     bytes = recvfrom(s,&recv, sizeof(sawFrame),0, (struct sockaddr *) &cliAddr, &len);
-    printf("[recv data] %d (%d) ACCEPTED \n", counter, sizeof(sawFrame);
+    printf("[recv data] %d (%ld) ACCEPTED \n", counter, sizeof(sawFrame));
     ack = htonl(recv.seq);
            
     sendto(s, &ack, sizeof(ack), 0, (struct sockaddr *) &cliAddr, len);
     if (bytes <= 0) break;
            
     write(1, buf, bytes);
-    counter += bytes;
+    counter += sizeof(sawFrame);
   }
   
   printf("[completed] \n");
