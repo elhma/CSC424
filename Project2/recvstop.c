@@ -46,7 +46,7 @@ int main(int argc, char *argv[])
   if(w < 0) fatal("send failed");
   
   sawFrame recv;
-  int ack;
+  long ack;
   while (1) {
     bytes = recvfrom(s,&recv, sizeof(sawFrame),0, (struct sockaddr *) &servAddr, &len);
     printf("[recv data] %d (%d) ACCEPTED \n", counter, bytes);
