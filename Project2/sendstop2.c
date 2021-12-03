@@ -57,28 +57,25 @@ int main(int argc, char *argv[])
  int recvack;
 
  while (1) {
-   if(ack == send.seq) {
-     bytes= read(fd, buf, BUF_SIZE);
-     send.bytes = bytes;
-     
-     if(bytes <= 0) strcpy(send.data, "");
-     else strcpy(send.data, buf);
-     
-     printf("[send data] %d (%d) \n", counter, bytes);
-     counter += bytes;
-   }
-   else {
-     printf("[resend data] %d (%d) \n", counter, bytes);
-   }
+ 
+   bytes= read(fd, buf, BUF_SIZE);
+   send.bytes = bytes;
+//    if(bytes == 0) {
+//      strcpy(send.data, "");
+//    }
+//    else {
+     strcpy(send.data, buf);
+  // }
    
    sendto(s, &send, sizeof(sawFrame),0, (struct sockaddr *) &servAddr, len);
+   printf("[send data] %d (%d) \n", counter, bytes);
    
    recvfrom(s, &recvack, sizeof(recvack), 0, (struct sockaddr *) &servAddr, &len);
    ack = ntohl(recvack);
    printf("[recvack] %d \n", ack);
    
    if (bytes <= 0) break;
-
+   counter += bytes;
  }
   
   close(fd);
