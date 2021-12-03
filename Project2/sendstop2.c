@@ -60,7 +60,7 @@ int main(int argc, char *argv[])
  while (1) {
  
    bytes= read(fd, buf, BUF_SIZE);
-   if(bytes = 0) strcpy(send.data, "");
+   if(bytes == 0) strcpy(send.data, "");
    else strcpy(send.data, buf);
    
    sendto(s, &send, sizeof(sawFrame),0, (struct sockaddr *) &servAddr, len);
