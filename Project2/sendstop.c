@@ -21,7 +21,7 @@ void fatal(char *string)
 
 int main(int argc, char *argv[])
 {
-  int s, b, c, l, fd, bytes, on, r, port = 1;
+  int s, b, fd, bytes, r, port = 1;
   int counter = 0;
   char buf[BUF_SIZE];
   struct hostent *h;
@@ -29,13 +29,12 @@ int main(int argc, char *argv[])
   struct sockaddr_in cliAddr;
   unsigned int len;
   
-  if (argc != 4) fatal("Usage: sendfile <recv-host> <recv-port> <filename>");
+  if (argc != 4) fatal("Usage: %s <recv-host> <recv-port> <filename>, argv[0]");
   h = gethostbyname(argv[1]);
   port = strtol(argv[2], NULL, 10);
 
   s=socket(AF_INET, SOCK_DGRAM, 0);
   if (s<0) fatal("socket failed");
-  //setsockopt(s, SOL_SOCKET, SO_REUSEADDR, (char *) &on, sizeof(on)); 
   
   memset(&servAddr, 0, sizeof(servAddr));
   servAddr.sin_family= AF_INET;
