@@ -72,7 +72,7 @@ int main(int argc, char *argv[])
       printf("[send data] %d (%d) \n", counter, bytes);
     }
     
-    r = recvfrom(s,*recvstr,sizeof(int),0,(struct sockaddr *) &cliAddr, &len);
+    r = recvfrom(s,&recvstr,sizeof(int),0,(struct sockaddr *) &cliAddr, &len);
     recvack = strtol(recvstr);
     
     if(recvack == send.seq) {
