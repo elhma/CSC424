@@ -58,7 +58,7 @@ int main(int argc, char *argv[])
     sendto(s, &ack, sizeof(ack), 0, (struct sockaddr *) &cliAddr, len);
     if (bytes <= 0) break;
            
-    write(1, buf, bytes);
+    write(1, recv.data, bytes);
     counter += sizeof(sawFrame);
   }
   
