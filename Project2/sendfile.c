@@ -46,6 +46,8 @@ int main(int argc, char *argv[])
   if (b< 0) fatal("bind failed");
   
   len = sizeof(cliAddr);
+  r = recvfrom(s, buf, BUF_SIZE,0, (struct sockaddr *) &cliAddr, &len);
+  if(r < 0) fatal("recv failed");
   
   fd = open(argv[3], O_RDONLY);
   if (fd < 0) fatal ("open failed");
