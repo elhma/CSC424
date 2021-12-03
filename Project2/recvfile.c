@@ -36,7 +36,9 @@ int main(int argc, char *argv[])
   servAddr.sin_addr.s_addr = INADDR_ANY;
   servAddr.sin_port= htons(port);
 
- len = sizeof(servAddr);
+  len = sizeof(servAddr);
+  w = sendto(s, argv[1], strlen(argv[1])+1, 0, (struct sockaddr *) &servAddr, len);
+  if(w < 0) fatal("send failed");
   
   while (1) {
     bytes = recvfrom(s,buf, BUF_SIZE,0, (struct sockaddr *) &servAddr, &len);
