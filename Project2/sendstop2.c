@@ -10,8 +10,13 @@
 #include <errno.h>
 #include <arpa/inet.h>
 
-#define BUF_SIZE 4096 
+#define BUF_SIZE 1024 
 #define QUEUE_SIZE 10
+
+typedef struct StopAndWaitFrame {
+  int seq;
+  char data[1024];
+}sawFrame;
 
 void fatal(char *string)
 {
@@ -45,20 +50,25 @@ int main(int argc, char *argv[])
   fd = open(argv[3], O_RDONLY);
   if (fd < 0) fatal ("open failed");
  
+ sawFrame send;
+ send.seq = 0; 
+ int ack = 0;
  int recvack;
- int ack = 1;
+
  while (1) {
+ 
    bytes= read(fd, buf, BUF_SIZE);
+   strcpy(send.data, buff);
    
-   sendto(s, buf, bytes,0, (struct sockaddr *) &servAddr, len);
-   printf("[send data] %d (%d) \n", counter, bytes);
+   sendto(s, &send, sizeof(sawFrame),0, (struct sockaddr *) &servAddr, len);
+   printf("[send data] %d (%d) \n", counter, sizeof(sawFrame));
    
    recvfrom(s, &recvack, sizeof(recvack), 0, (struct sockaddr *) &servAddr, &len);
    ack = ntohl(recvack);
    printf("[recvack] %d", ack);
    
    if (bytes <= 0) break;
-   counter += bytes;
+   counter += sizeof(sawFrame);
  }
   
   close(fd);
