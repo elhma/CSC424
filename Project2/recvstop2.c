@@ -49,7 +49,7 @@ int main(int argc, char *argv[])
     bytes = recvfrom(s,buf, BUF_SIZE,0, (struct sockaddr *) &cliAddr, &len);
     printf("[recv data] %d (%d) ACCEPTED \n", counter, bytes);
     
-    sendto(s, &sendack, sizeof(sendack), 0, (struct sockaddr *) &cliAddr, &len);
+    sendto(s, &sendack, sizeof(sendack), 0, (struct sockaddr *) &cliAddr, len);
     if (bytes <= 0) break;
            
     write(1, buf, bytes);
