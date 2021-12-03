@@ -41,8 +41,8 @@ int main(int argc, char *argv[])
   if (b< 0) fatal("bind failed");
   
   len = sizeof(cliAddr);
-  w = sendto(s, argv[1], strlen(argv[1])+1, 0, (struct sockaddr *) &cliAddr, len);
-  if(w < 0) fatal("send failed");
+//   w = sendto(s, argv[1], strlen(argv[1])+1, 0, (struct sockaddr *) &cliAddr, len);
+//   if(w < 0) fatal("send failed");
   
   while (1) {
     bytes = recvfrom(s,buf, BUF_SIZE,0, (struct sockaddr *) &cliAddr, &len);
