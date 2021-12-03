@@ -50,16 +50,17 @@ int main(int argc, char *argv[])
   
   sawFrame recv;
   int ack;
+  char data[1024];
   
   while (1) {
     bytes = recvfrom(s,&recv, sizeof(sawFrame),0, (struct sockaddr *) &cliAddr, &len);   
     printf("[recv data] %d (%d) ACCEPTED \n", counter, recv.bytes);
-    
+
     ack = htonl(recv.seq);  
     sendto(s, &ack, sizeof(ack), 0, (struct sockaddr *) &cliAddr, len);
     
     if (recv.bytes == 0) break;
-
+    strcpy(data, recv.data);
     write(1, recv.data, bytes);
     counter += bytes;
   }
