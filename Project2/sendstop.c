@@ -65,13 +65,13 @@ int main(int argc, char *argv[])
     if((ack == 0 && send.seq == 0) || (ack == 1 && send.seq == 1)){
       bytes= read(fd, buf, BUF_SIZE);
       strcpy(send.data, buf);
-      send.seq = (send.seq+1)%2
+      send.seq = (send.seq+1)%2;
       
       sendto(s, &send, sizeof(sawFrame),0, (struct sockaddr *) &cliAddr, len);
       printf("[send data] %d (%d) \n", counter, bytes);
     }
     
-    r = recvfrom(s,recvack,sizeof(int),0,(struct sockaddr *) &cliAddr, &len);
+    r = recvfrom(s,*recvack,sizeof(int),0,(struct sockaddr *) &cliAddr, &len);
     
     if(recvack == send.seq) {
       printf("[recvack] %d", recvack);
