@@ -60,42 +60,48 @@ int main(int argc, char *argv[])
  int ack = 0;
  int recvack;
  int success;
-
+  
  while (1) {
- 
-   bytes= read(fd, buf, BUF_SIZE);
-   strcpy(send.data, buf);
-   send.bytes = bytes;
-   send.seq = (send.seq+1)%2;
-   
-   sendto(s, &send, sizeof(sawFrame),0, (struct sockaddr *) &servAddr, len);
-   printf("[send data] %d (%d) \n", counter, bytes);
-   
-   FD_ZERO( &readfds );   
-   FD_SET ( s, &readfds );
-   
-   timeout.tv_sec = 5;     
-   timeout.tv_usec = 0;
-   success = 0;
-   
-   while(!success) {
-     if ( select ( 32, &readfds, NULL, NULL, &timeout ) == 0 ) {
-       sendto(s, &send, sizeof(sawFrame),0, (struct sockaddr *) &servAddr, len);
-       printf("[resend data] %d (%d) \n", counter, bytes);
-       timeout.tv_sec = 5;     
-       timeout.tv_usec = 0;
-     }
-     else {
-       recvfrom(s, &recvack, sizeof(recvack), 0, (struct sockaddr *) &servAddr, &len);
-       ack = ntohl(recvack);
-       printf("[recv ack] %d \n", ack);
-   
-       FD_ZERO( &readfds );   
-       FD_SET ( s, &readfds );
-       success = 1;
-     }
+   if(recvfrom(s, &recvack, sizeof(recvack), 0, (struct sockaddr *) &servAddr, &len)){
+     ack = ntohl(recvack);
+     printf("[recv ack] %d \n", ack);
    }
    
+   if(send.seq-ack <= 5) {
+     bytes= read(fd, buf, BUF_SIZE);
+     strcpy(send.data, buf);
+     send.bytes = bytes;
+     send.seq = send.seq+1;
+     
+     sendto(s, &send, sizeof(sawFrame),0, (struct sockaddr *) &servAddr, len);
+     printf("[send data] %d (%d) \n", counter, bytes);
+    }
+   else {
+     FD_ZERO( &readfds );   
+     FD_SET ( s, &readfds );
+   
+     timeout.tv_sec = 5;     
+     timeout.tv_usec = 0;
+     success = 0;
+   
+     while(!success) {
+       if ( select ( 32, &readfds, NULL, NULL, &timeout ) == 0 ) {
+         sendto(s, &send, sizeof(sawFrame),0, (struct sockaddr *) &servAddr, len);
+         printf("[resend data] %d (%d) \n", counter, bytes);
+         timeout.tv_sec = 5;     
+         timeout.tv_usec = 0;
+       }
+       else {
+         recvfrom(s, &recvack, sizeof(recvack), 0, (struct sockaddr *) &servAddr, &len);
+         ack = ntohl(recvack);
+         printf("[recv ack] %d \n", ack);
+   
+         FD_ZERO( &readfds );   
+         FD_SET ( s, &readfds );
+         success = 1;
+     }
+     }
+   }
    if (bytes <= 0) break;
    counter += bytes;
  }
