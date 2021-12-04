@@ -4,14 +4,22 @@
 #include <sys/types.h>
 #include <sys/fcntl.h>
 #include <sys/socket.h>
+#include <sys/select.h>
+#include <sys/time.h>
 #include <netinet/in.h>
 #include <netdb.h>
 #include <unistd.h>
 #include <errno.h>
 #include <arpa/inet.h>
 
-#define BUF_SIZE 4096 
+#define BUF_SIZE 1024 
 #define QUEUE_SIZE 10
+
+typedef struct StopAndWaitFrame {
+  int seq;
+  int bytes;
+  char data[BUF_SIZE];
+}sawFrame;
 
 void fatal(char *string)
 {
@@ -41,17 +49,52 @@ int main(int argc, char *argv[])
   servAddr.sin_port = htons(port);
   
   len = sizeof(servAddr);
-//   r = recvfrom(s, buf, BUF_SIZE,0, (struct sockaddr *) &servAddr, &len);
-//   if(r < 0) fatal("recv failed");
   
   fd = open(argv[3], O_RDONLY);
   if (fd < 0) fatal ("open failed");
-    
+ 
+ fd_set readfds;
+ struct timeval timeout;
+ sawFrame send;
+ send.seq = 0; 
+ int ack = 0;
+ int recvack;
+ int success;
+
  while (1) {
+ 
    bytes= read(fd, buf, BUF_SIZE);
+   strcpy(send.data, buf);
+   send.bytes = bytes;
+   send.seq = (send.seq+1)%2;
    
-   sendto(s, buf, bytes,0, (struct sockaddr *) &servAddr, len);
+   sendto(s, &send, sizeof(sawFrame),0, (struct sockaddr *) &servAddr, len);
    printf("[send data] %d (%d) \n", counter, bytes);
+   
+   FD_ZERO( &readfds );   
+   FD_SET ( s, &readfds );
+   
+   timeout.tv_sec = 5;     
+   timeout.tv_usec = 0;
+   success = 0;
+   
+   while(!success) {
+     if ( select ( 32, &readfds, NULL, NULL, &timeout ) == 0 ) {
+       sendto(s, &send, sizeof(sawFrame),0, (struct sockaddr *) &servAddr, len);
+       printf("[resend data] %d (%d) \n", counter, bytes);
+       timeout.tv_sec = 5;     
+       timeout.tv_usec = 0;
+     }
+     else {
+       recvfrom(s, &recvack, sizeof(recvack), 0, (struct sockaddr *) &servAddr, &len);
+       ack = ntohl(recvack);
+       printf("[recv ack] %d \n", ack);
+   
+       FD_ZERO( &readfds );   
+       FD_SET ( s, &readfds );
+       success = 1;
+     }
+   }
    
    if (bytes <= 0) break;
    counter += bytes;
