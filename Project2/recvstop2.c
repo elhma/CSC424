@@ -60,9 +60,10 @@ int main(int argc, char *argv[])
       printf("[recv data] %d (%d) IGNORED \n", counter, recv.bytes);
     }
     else {
-      printf("[recv data] %d (%d) ACCEPTED \n", counter, recv.bytes);  
-      write(1, recv.data, recv.bytes);
+      printf("[recv data] %d (%d) ACCEPTED \n", counter, recv.bytes); 
+      ack = seq;
       counter += recv.bytes;
+      write(1, recv.data, recv.bytes);
     }
 
     sendto(s, &ack, sizeof(ack), 0, (struct sockaddr *) &cliAddr, len);
