@@ -8,7 +8,13 @@
 #include <arpa/inet.h>
 #include <unistd.h>
 
-#define BUF_SIZE 4096
+#define BUF_SIZE 1024
+
+typedef struct StopAndWaitFrame{
+  int seq;
+  int bytes;
+  char data[BUF_SIZE];
+}sawFrame;
 
 void fatal(char *string)
 {
@@ -42,17 +48,29 @@ int main(int argc, char *argv[])
   
   len = sizeof(cliAddr);
   
+  sawFrame recv;
+  int seq;
+  int ack = 0;
+  
   while (1) {
-    bytes = recvfrom(s,buf, BUF_SIZE,0, (struct sockaddr *) &cliAddr, &len);
-    printf("[recv data] %d (%d) ACCEPTED \n", counter, bytes);
-           
-    if (bytes <= 0) break;
-           
-    write(1, buf, bytes);
-    counter += bytes;
+    bytes = recvfrom(s,&recv, sizeof(sawFrame),0, (struct sockaddr *) &cliAddr, &len);   
+    seq = htonl(recv.seq);  
+    
+    if(seq == ack) {
+      printf("[recv data] %d (%d) IGNORED \n", counter, recv.bytes);
+    }
+    else {
+      printf("[recv data] %d (%d) ACCEPTED \n", counter, recv.bytes); 
+      ack = seq;
+      counter += recv.bytes;
+      write(1, recv.data, recv.bytes);
+    }
+
+    sendto(s, &ack, sizeof(ack), 0, (struct sockaddr *) &cliAddr, len);
+    if (recv.bytes == 0) break;
   }
   
   printf("[completed] \n");
   close(s);
-  return 0;
+
 }
