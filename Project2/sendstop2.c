@@ -91,6 +91,7 @@ int main(int argc, char *argv[])
    
        FD_ZERO( &readfds );   
        FD_SET ( s, &readfds );
+       success = 1;
      }
    }
    
