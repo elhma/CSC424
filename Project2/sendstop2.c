@@ -92,7 +92,8 @@ int main(int argc, char *argv[])
        FD_ZERO( &readfds );   
        FD_SET ( s, &readfds );
      }
-     
+   }
+   
    if (bytes <= 0) break;
    counter += bytes;
  }
