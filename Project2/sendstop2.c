@@ -53,7 +53,7 @@ int main(int argc, char *argv[])
   fd = open(argv[3], O_RDONLY);
   if (fd < 0) fatal ("open failed");
  
- FD_SET readfds;
+ fd_set readfds;
  struct timeval timeout;
  sawFrame send;
  send.seq = 0; 
@@ -74,7 +74,7 @@ int main(int argc, char *argv[])
    FD_SET ( s, &readfds );
    
    timeout.tv_sec = 5;     
-   timeout.tv_usec = 0
+   timeout.tv_usec = 0;
    success = 0;
    
    while(!success) {
@@ -82,7 +82,7 @@ int main(int argc, char *argv[])
        sendto(s, &send, sizeof(sawFrame),0, (struct sockaddr *) &servAddr, len);
        printf("[resend data] %d (%d) \n", counter, bytes);
        timeout.tv_sec = 5;     
-       timeout.tv_usec = 0
+       timeout.tv_usec = 0;
      }
      else {
        recvfrom(s, &recvack, sizeof(recvack), 0, (struct sockaddr *) &servAddr, &len);
