@@ -18,7 +18,7 @@
 typedef struct StopAndWaitFrame {
   int seq;
   int bytes;
-  char data[1024];
+  char data[BUF_SIZE];
 }sawFrame;
 
 void fatal(char *string)
@@ -64,8 +64,9 @@ int main(int argc, char *argv[])
  while (1) {
  
    bytes= read(fd, buf, BUF_SIZE);
-   send.bytes = bytes;
    strcpy(send.data, buf);
+   send.bytes = bytes;
+   send.seq = (send.seq+1)%2;
    
    sendto(s, &send, sizeof(sawFrame),0, (struct sockaddr *) &servAddr, len);
    printf("[send data] %d (%d) \n", counter, bytes);
@@ -87,7 +88,7 @@ int main(int argc, char *argv[])
      else {
        recvfrom(s, &recvack, sizeof(recvack), 0, (struct sockaddr *) &servAddr, &len);
        ack = ntohl(recvack);
-       printf("[recvack] %d \n", ack);
+       printf("[recv ack] %d \n", ack);
    
        FD_ZERO( &readfds );   
        FD_SET ( s, &readfds );
