@@ -76,7 +76,7 @@ int main(int argc, char *argv[])
      strcpy(buffer[pos].data, buf);
      buffer[pos].bytes = bytes;
      buffer[pos].counter = counter;
-     buffer.[pos]seq = seqnum;
+     buffer[pos].seq = seqnum;
      
      sendto(s, &buffer[pos], sizeof(sawFrame),0, (struct sockaddr *) &servAddr, len);
      printf("[send data] %d (%d) \n", counter, bytes);
