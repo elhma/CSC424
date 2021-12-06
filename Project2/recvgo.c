@@ -13,6 +13,7 @@
 typedef struct StopAndWaitFrame{
   int seq;
   int bytes;
+  int counter;
   char data[BUF_SIZE];
 }sawFrame;
 
