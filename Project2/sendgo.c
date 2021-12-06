@@ -105,7 +105,7 @@ int main(int argc, char *argv[])
    }
    
    if(recvfrom(s, &recvack, sizeof(recvack), 0, (struct sockaddr *) &servAddr, &len)) {
-     if(ntohl(recvack) == nextack) {
+     if(recvack == nextack) {
        printf("[recv ack] %d ACCEPTED \n", nextack);
    
        nextack += 1;
