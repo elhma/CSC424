@@ -56,14 +56,14 @@ int main(int argc, char *argv[])
     bytes = recvfrom(s,&recv, sizeof(sawFrame),0, (struct sockaddr *) &cliAddr, &len);   
     seq = htonl(recv.seq);  
     
-    if(seq == ack) {
-      printf("[recv data] %d (%d) IGNORED \n", counter, recv.bytes);
-    }
-    else {
+    if(seq == ack+1) {
       printf("[recv data] %d (%d) ACCEPTED \n", counter, recv.bytes); 
       ack = seq;
       counter += recv.bytes;
       write(1, recv.data, recv.bytes);
+    }
+    else {
+      printf("[recv data] %d (%d) IGNORED \n", counter, recv.bytes);
     }
 
     sendto(s, &ack, sizeof(ack), 0, (struct sockaddr *) &cliAddr, len);
