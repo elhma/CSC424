@@ -87,8 +87,7 @@ int main(int argc, char *argv[])
      }
      else {
        recvfrom(s, &recvack, sizeof(recvack), 0, (struct sockaddr *) &servAddr, &len);
-       ack = ntohl(recvack);
-       printf("[recv ack] %d \n", ack);
+       printf("[recv ack] %d \n", recvack);
    
        FD_ZERO( &readfds );   
        FD_SET ( s, &readfds );
