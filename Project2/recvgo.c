@@ -57,13 +57,12 @@ int main(int argc, char *argv[])
     seq = htonl(recv.seq);  
     
     if(seq == ack+1) {
-      printf("[recv data] %d (%d) ACCEPTED \n", counter, recv.bytes); 
+      printf("[recv data] %d (%d) ACCEPTED \n", recv.counter, recv.bytes); 
       ack = seq;
-      counter += recv.bytes;
       write(1, recv.data, recv.bytes);
     }
     else {
-      printf("[recv data] %d (%d) IGNORED \n", counter, recv.bytes);
+      printf("[recv data] %d (%d) IGNORED \n", recv.counter, recv.bytes);
     }
 
     sendto(s, &ack, sizeof(ack), 0, (struct sockaddr *) &cliAddr, len);
