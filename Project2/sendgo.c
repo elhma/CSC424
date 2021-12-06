@@ -61,7 +61,7 @@ int main(int argc, char *argv[])
  sawFrame buffer[5];
  int pos = 0;
  int seqnum = 0;
- int nextack = 0;
+ int nextack = 1;
  int recvack;
  int resend;
  int repos;
@@ -69,17 +69,18 @@ int main(int argc, char *argv[])
  while (1) {
    
    if(seqnum-nextack < 5) {
+     seqnum = seqnum+1;
+     pos = seqnum%5;
+     
      bytes= read(fd, buf, BUF_SIZE);
      strcpy(buffer[pos].data, buf);
      buffer[pos].bytes = bytes;
      buffer[pos].counter = counter;
-     buffer.seq = seqnum;
+     buffer.[pos]seq = seqnum;
      
      sendto(s, &buffer[pos], sizeof(sawFrame),0, (struct sockaddr *) &servAddr, len);
      printf("[send data] %d (%d) \n", counter, bytes);
-  
-     seqnum = seqnum+1;
-     pos = seqnum%5;
+
      
      FD_ZERO( &readfds );   
      FD_SET ( s, &readfds );
@@ -99,14 +100,14 @@ int main(int argc, char *argv[])
        resend += 1;
      }
      timeout.tv_sec = 5;     
-     timeout.tv_usec = 0
+     timeout.tv_usec = 0;
    }
    
    if(recvfrom(s, &recvack, sizeof(recvack), 0, (struct sockaddr *) &servAddr, &len)) {
      if(ntohl(recvack) == nextack) {
        printf("[recv ack] %d ACCEPTED \n", nextack);
    
-       nextack += 1
+       nextack += 1;
        FD_ZERO( &readfds );   
        FD_SET ( s, &readfds );   
      }
