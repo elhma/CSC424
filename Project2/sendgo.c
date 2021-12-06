@@ -78,7 +78,6 @@ int main(int argc, char *argv[])
      buffer[pos].counter = counter;
      buffer[pos].seq = seqnum;
      
-     printf("%d \n", buffer[pos].seq);
      sendto(s, &buffer[pos], sizeof(sawFrame),0, (struct sockaddr *) &servAddr, len);
      printf("[send data] %d (%d) \n", counter, bytes);
 
