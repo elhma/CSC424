@@ -67,7 +67,7 @@ int main(int argc, char *argv[])
    bytes= read(fd, buf, BUF_SIZE);
    strcpy(send.data, buf);
    send.bytes = bytes;
-   send.seq = (send.seq+1)%2;
+   send.seq += 1;
    send.counter = counter;
    
    sendto(s, &send, sizeof(sawFrame),0, (struct sockaddr *) &servAddr, len);
