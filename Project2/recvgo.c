@@ -58,7 +58,7 @@ int main(int argc, char *argv[])
     
     if(recv.seq == ack+1) {
       printf("[recv data] %d (%d) ACCEPTED \n", recv.counter, recv.bytes); 
-      ack = seq;
+      ack = recv.seq;
       write(1, recv.data, recv.bytes);
     }
     else {
