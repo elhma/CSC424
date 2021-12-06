@@ -56,7 +56,7 @@ int main(int argc, char *argv[])
   while (1) {
     bytes = recvfrom(s,&recv, sizeof(sawFrame),0, (struct sockaddr *) &cliAddr, &len);   
     seq = htonl(recv.seq);  
-    printf("%d \n", seq);
+    printf("%d \n", recv.seq);
     
     if(seq == ack+1) {
       printf("[recv data] %d (%d) ACCEPTED \n", recv.counter, recv.bytes); 
