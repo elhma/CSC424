@@ -84,8 +84,13 @@ int main(int argc, char *argv[])
      if ( select ( 32, &readfds, NULL, NULL, &timeout ) == 0 ) {
        sendto(s, &send, sizeof(sawFrame),0, (struct sockaddr *) &servAddr, len);
        printf("[resend data] %d (%d) \n", counter, bytes);
+       
+       FD_ZERO( &readfds );   
+       FD_SET ( s, &readfds );
+       
        timeout.tv_sec = 5;     
        timeout.tv_usec = 0;
+       
      }
      else {
        recvfrom(s, &recvack, sizeof(recvack), 0, (struct sockaddr *) &servAddr, &len);
