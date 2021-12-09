@@ -89,7 +89,7 @@ int main(int argc, char *argv[])
      timeout.tv_usec = 0;
    }
 
-   if ( select ( 32, &readfds, NULL, NULL, &timeout ) == 0 ) {
+   else if ( select ( 32, &readfds, NULL, NULL, &timeout ) == 0 ) {
      resend = nextack;
      while(resend < seqnum){
        repos = resend%5;
@@ -107,7 +107,7 @@ int main(int argc, char *argv[])
      timeout.tv_usec = 0;
    }
    
-   if(recvfrom(s, &recvack, sizeof(recvack), 0, (struct sockaddr *) &servAddr, &len)) {
+   else if(recvfrom(s, &recvack, sizeof(recvack), 0, (struct sockaddr *) &servAddr, &len)) {
      if(recvack == nextack) {
        printf("[recv ack] %d ACCEPTED \n", nextack);
    
