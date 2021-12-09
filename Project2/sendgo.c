@@ -107,7 +107,7 @@ int main(int argc, char *argv[])
      timeout.tv_usec = 0;
    }
    
-   if(recvfrom(s, &recvack, sizeof(recvack), 0, (struct sockaddr *) &servAddr, &len)) {
+   if(recvfrom(s, &recvack, sizeof(recvack), 0, (struct sockaddr *) &servAddr, &len) > 0) {
      if(recvack == nextack) {
        printf("[recv ack] %d ACCEPTED \n", nextack);
    
