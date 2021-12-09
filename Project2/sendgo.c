@@ -65,11 +65,10 @@ int main(int argc, char *argv[])
  int recvack;
  int resend;
  int repos;
- printf("%d", bytes);
   
  while (1) {
    
-   if((seqnum-nextack < 5) && (bytes != 0))  {
+   if(seqnum-nextack < 5) {
      seqnum = seqnum+1;
      pos = seqnum%5;
      
@@ -100,15 +99,11 @@ int main(int argc, char *argv[])
        
        resend += 1;
      }
-     
-     FD_ZERO( &readfds );   
-     FD_SET ( s, &readfds );
-     
      timeout.tv_sec = 5;     
      timeout.tv_usec = 0;
    }
    
-   if (recvfrom(s, &recvack, sizeof(recvack), 0, (struct sockaddr *) &servAddr, &len)) {
+   if(recvfrom(s, &recvack, sizeof(recvack), 0, (struct sockaddr *) &servAddr, &len)) {
      if(recvack == nextack) {
        printf("[recv ack] %d ACCEPTED \n", nextack);
    
