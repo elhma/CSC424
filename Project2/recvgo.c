@@ -62,11 +62,12 @@ int main(int argc, char *argv[])
     }
     else {
       printf("[recv data] %d (%d) IGNORED \n", recv.counter, recv.bytes);
-      printf("%d %d \n", recv.seq, ack);
+
     }
     
     ack = recv.seq;
     sendto(s, &ack, sizeof(ack), 0, (struct sockaddr *) &cliAddr, len);
+    printf("%d %d \n", recv.seq, ack);
     if (recv.bytes == 0) break;
   }
   
