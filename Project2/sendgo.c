@@ -119,7 +119,7 @@ int main(int argc, char *argv[])
      else printf("[recv ack] %d IGNORED \n", recvack);
    }
  
-   if (bytes <= 0) break;
+//   if (bytes <= 0) break;
    counter += bytes;
  }
   
