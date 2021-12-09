@@ -65,6 +65,7 @@ int main(int argc, char *argv[])
  int recvack;
  int resend;
  int repos;
+ printf("%d", bytes);
   
  while (1) {
    
