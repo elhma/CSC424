@@ -107,16 +107,16 @@ int main(int argc, char *argv[])
      timeout.tv_usec = 0;
    }
    
-   else {
-     recvfrom(s, &recvack, sizeof(recvack), 0, (struct sockaddr *) &servAddr, &len);
+   if(recvfrom(s, &recvack, sizeof(recvack), 0, (struct sockaddr *) &servAddr, &len)) {
      if(recvack == nextack) {
        printf("[recv ack] %d ACCEPTED \n", nextack);
    
        nextack += 1;
+       
        FD_ZERO( &readfds );   
        FD_SET ( s, &readfds );   
      }
-     else printf("[recv ack] %d IGNORED \n", ntohl(recvack));
+     else printf("[recv ack] %d IGNORED \n", recvack);
    }
  
    if (bytes <= 0) break;
