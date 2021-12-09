@@ -58,13 +58,13 @@ int main(int argc, char *argv[])
     
     if(recv.seq == ack+1) {
       printf("[recv data] %d (%d) ACCEPTED \n", recv.counter, recv.bytes); 
-      ack = recv.seq;
       write(1, recv.data, recv.bytes);
     }
     else {
       printf("[recv data] %d (%d) IGNORED \n", recv.counter, recv.bytes);
     }
-
+    
+    ack = recv.seq;
     sendto(s, &ack, sizeof(ack), 0, (struct sockaddr *) &cliAddr, len);
     if (recv.bytes == 0) break;
   }
