@@ -30,7 +30,8 @@ void fatal(char *string)
 
 int main(int argc, char *argv[])
 {
-  int s, b, c, l, fd, bytes, on, r, port = 1;
+  int s, b, c, l, fd, on, r, port = 1;
+  int bytes = 1;
   int counter = 0;
   char buf[BUF_SIZE];
   struct hostent *h;
