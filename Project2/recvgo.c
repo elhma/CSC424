@@ -67,7 +67,6 @@ int main(int argc, char *argv[])
     
     ack = recv.seq;
     sendto(s, &ack, sizeof(ack), 0, (struct sockaddr *) &cliAddr, len);
-    printf("%d %d \n", recv.seq, ack);
     if (recv.bytes == 0) break;
   }
   
