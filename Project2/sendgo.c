@@ -99,6 +99,10 @@ int main(int argc, char *argv[])
        
        resend += 1;
      }
+     
+     FD_ZERO( &readfds );   
+     FD_SET ( s, &readfds );
+     
      timeout.tv_sec = 5;     
      timeout.tv_usec = 0;
    }
