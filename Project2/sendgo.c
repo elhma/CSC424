@@ -65,10 +65,11 @@ int main(int argc, char *argv[])
  int recvack;
  int resend;
  int repos;
+ printf("%d", bytes);
   
  while (1) {
    
-   if(seqnum-nextack < 5) {
+   if((seqnum-nextack < 5) && (bytes != 0)) {
      seqnum = seqnum+1;
      pos = seqnum%5;
      
