@@ -90,7 +90,7 @@ int main(int argc, char *argv[])
      timeout.tv_usec = 0;
    }
 
-   else if ( select ( 32, &readfds, NULL, NULL, &timeout ) == 0 ) {
+   if ( select ( 32, &readfds, NULL, NULL, &timeout ) == 0 ) {
      resend = nextack;
      while(resend < seqnum){
        repos = resend%5;
