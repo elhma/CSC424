@@ -108,7 +108,7 @@ int main(int argc, char *argv[])
      timeout.tv_usec = 0;
    }
    
-   r = recvfrom(s, &recvack, sizeof(recvack), 0, (struct sockaddr *) &servAddr, &len);
+   r = recvfrom(s, &recvack, sizeof(recvack), MSG_DONTWAIT, (struct sockaddr *) &servAddr, &len);
    
    if( r > 0) {
      if(recvack == nextack) {
@@ -120,11 +120,9 @@ int main(int argc, char *argv[])
        FD_SET ( s, &readfds );   
      }
      else printf("[recv ack] %d IGNORED \n", recvack);
-     
-     r = 0;
    }
  
-//   if (bytes <= 0) break;
+   if (bytes <= 0) break;
    counter += bytes;
  }
   
