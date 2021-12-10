@@ -30,8 +30,9 @@ void fatal(char *string)
 
 int main(int argc, char *argv[])
 {
-  int s, b, c, l, fd, on, r, port = 1;
+  int s, b, c, l, fd, on, port = 1;
   int bytes = 1;
+  int r = 0;
   int counter = 0;
   char buf[BUF_SIZE];
   struct hostent *h;
@@ -107,7 +108,9 @@ int main(int argc, char *argv[])
      timeout.tv_usec = 0;
    }
    
-   if(recvfrom(s, &recvack, sizeof(recvack), 0, (struct sockaddr *) &servAddr, &len) > 0) {
+   r = recvfrom(s, &recvack, sizeof(recvack), 0, (struct sockaddr *) &servAddr, &len);
+   
+   if( r > 0) {
      if(recvack == nextack) {
        printf("[recv ack] %d ACCEPTED \n", nextack);
    
@@ -117,6 +120,8 @@ int main(int argc, char *argv[])
        FD_SET ( s, &readfds );   
      }
      else printf("[recv ack] %d IGNORED \n", recvack);
+     
+     r = 0;
    }
  
 //   if (bytes <= 0) break;
