@@ -137,7 +137,6 @@ int main(int argc, char *argv[])
          FD_SET ( s, &readfds );   
          success = 1;
        }
-       else printf("[recv ack] %d IGNORED \n", recvack);
      }
    }
  //  if (bytes <= 0) break;
