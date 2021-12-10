@@ -67,6 +67,7 @@ int main(int argc, char *argv[])
  int recvack;
  int resend;
  int repos;
+ int success;
   
  while (1) {
    
