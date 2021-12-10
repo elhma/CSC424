@@ -94,20 +94,6 @@ int main(int argc, char *argv[])
      timeout.tv_usec = 0;
    
      success = 0;
-   
-//    r = recvfrom(s, &recvack, sizeof(recvack), MSG_DONTWAIT, (struct sockaddr *) &servAddr, &len);
-   
-//    if( r > 0) {
-//      if(recvack == nextack) {
-//        printf("[recv ack] %d ACCEPTED \n", nextack);
-   
-//        nextack += 1;
-       
-//        FD_ZERO( &readfds );   
-//        FD_SET ( s, &readfds );   
-//      }
-//      else printf("[recv ack] %d IGNORED \n", recvack);
-//    }
 
    while(!success) {
      if ( select ( 32, &readfds, NULL, NULL, &timeout ) == 0 ) {
