@@ -55,21 +55,20 @@ int main(int argc, char *argv[])
   int ack = 0;
   
   while (1) {
-    bytes = recvfrom(s,&recv, sizeof(sawFrame),0, (struct sockaddr *) &cliAddr, &len);   
-    
-    if(recv.seq == ack+1) {
-      printf("[recv data] %d (%d) ACCEPTED \n", recv.counter, recv.bytes); 
-      write(1, recv.data, recv.bytes);
-      ack = recv.seq;
-    }
+    if(recvfrom(s,&recv, sizeof(sawFrame),0, (struct sockaddr *) &cliAddr, &len) == 0) break;
     else {
-      printf("[recv data] %d (%d) IGNORED \n", recv.counter, recv.bytes);
+      if(recv.seq == ack+1) {
+        printf("[recv data] %d (%d) ACCEPTED \n", recv.counter, recv.bytes); 
+        write(1, recv.data, recv.bytes);
+        ack = recv.seq;
+      }
+      else {
+        printf("[recv data] %d (%d) IGNORED \n", recv.counter, recv.bytes);
+      }
+    
+      sendack = recv.seq;
+      sendto(s, &sendack, sizeof(sendack), 0, (struct sockaddr *) &cliAddr, len);
     }
-    
-    sendack = recv.seq;
-    sendto(s, &sendack, sizeof(sendack), 0, (struct sockaddr *) &cliAddr, len);
-    
-    if (bytes == 0) break;
   }
   
   printf("[completed] \n");
