@@ -55,7 +55,12 @@ int main(int argc, char *argv[])
   int ack = 0;
   
   while (1) {
-    if(recvfrom(s,&recv, sizeof(sawFrame),0, (struct sockaddr *) &cliAddr, &len) == 0) break;
+    if(recvfrom(s,&recv, sizeof(sawFrame),0, (struct sockaddr *) &cliAddr, &len) == 0) {
+        printf("[completed] \n");
+        close(s);
+      
+        return 0;
+    }
     else {
       if(recv.seq == ack+1) {
         printf("[recv data] %d (%d) ACCEPTED \n", recv.counter, recv.bytes); 
@@ -70,8 +75,4 @@ int main(int argc, char *argv[])
       sendto(s, &sendack, sizeof(sendack), 0, (struct sockaddr *) &cliAddr, len);
     }
   }
-  
-  printf("[completed] \n");
-  close(s);
-
 }
