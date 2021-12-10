@@ -51,6 +51,7 @@ int main(int argc, char *argv[])
   
   sawFrame recv;
   int seq;
+  int sendack;
   int ack = 0;
   
   while (1) {
@@ -59,14 +60,14 @@ int main(int argc, char *argv[])
     if(recv.seq == ack+1) {
       printf("[recv data] %d (%d) ACCEPTED \n", recv.counter, recv.bytes); 
       write(1, recv.data, recv.bytes);
+      ack = recv.seq;
     }
     else {
       printf("[recv data] %d (%d) IGNORED \n", recv.counter, recv.bytes);
-
     }
     
-    ack = recv.seq;
-    sendto(s, &ack, sizeof(ack), 0, (struct sockaddr *) &cliAddr, len);
+    sendack = recv.seq;
+    sendto(s, &sendack, sizeof(sendack), 0, (struct sockaddr *) &cliAddr, len);
   //  if (recv.bytes == 0) break;
   }
   
