@@ -79,6 +79,7 @@ int main(int argc, char *argv[])
   }
   
   printf("[completed] \n");
+  fclose(fp);
   close(s);
 
 }
