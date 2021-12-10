@@ -86,14 +86,15 @@ int main(int argc, char *argv[])
      
      counter += bytes;
    }
-     
-   FD_ZERO( &readfds );   
-   FD_SET ( s, &readfds );
    
-   timeout.tv_sec = 5;     
-   timeout.tv_usec = 0;
+     FD_ZERO( &readfds );   
+     FD_SET ( s, &readfds );
    
-   success = 0;
+     timeout.tv_sec = 5;     
+     timeout.tv_usec = 0;
+   
+     success = 0;
+   }
 //    r = recvfrom(s, &recvack, sizeof(recvack), MSG_DONTWAIT, (struct sockaddr *) &servAddr, &len);
    
 //    if( r > 0) {
@@ -111,7 +112,7 @@ int main(int argc, char *argv[])
    while(!success) {
      if ( select ( 32, &readfds, NULL, NULL, &timeout ) == 0 ) {
        resend = nextack;
-       while(resend < seqnum){
+       while(resend <= seqnum){
          repos = resend%5;
        
          sendto(s, &buffer[repos], sizeof(sawFrame),0, (struct sockaddr *) &servAddr, len);
@@ -135,8 +136,8 @@ int main(int argc, char *argv[])
          FD_ZERO( &readfds );   
          FD_SET ( s, &readfds );   
          success = 1;
-     }
-     else printf("[recv ack] %d IGNORED \n", recvack);
+       }
+       else printf("[recv ack] %d IGNORED \n", recvack);
      }
    }
  //  if (bytes <= 0) break;
