@@ -94,7 +94,7 @@ int main(int argc, char *argv[])
      timeout.tv_usec = 0;
    
      success = 0;
-   }
+   
 //    r = recvfrom(s, &recvack, sizeof(recvack), MSG_DONTWAIT, (struct sockaddr *) &servAddr, &len);
    
 //    if( r > 0) {
