@@ -125,7 +125,7 @@ int main(int argc, char *argv[])
        }
      }
    }
- //  if (bytes <= 0) break;
+ if ((bytes <= 0) && (recvack == seqnum)) break;
 
  }
   
