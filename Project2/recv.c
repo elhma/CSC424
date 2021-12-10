@@ -49,6 +49,9 @@ int main(int argc, char *argv[])
   
   len = sizeof(cliAddr);
   
+  FILE *fp;
+  fp = fopen("output.txt", "w+");
+  
   sawFrame recv;
   int seq;
   int sendack;
@@ -60,7 +63,7 @@ int main(int argc, char *argv[])
     
     if(recv.seq == ack+1) {
       printf("[recv data] %d (%d) ACCEPTED \n", recv.counter, recv.bytes); 
-      write(1, recv.data, recv.bytes);
+      fwrite(recv.data, recv.bytes, 1, fp);
       ack = recv.seq;
       accepted = 1;
     }
