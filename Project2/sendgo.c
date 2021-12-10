@@ -82,6 +82,8 @@ int main(int argc, char *argv[])
      
      sendto(s, &buffer[pos], sizeof(sawFrame),0, (struct sockaddr *) &servAddr, len);
      printf("[send data] %d (%d) \n", counter, bytes);
+     
+     counter += bytes;
    }
      
    FD_ZERO( &readfds );   
@@ -90,39 +92,53 @@ int main(int argc, char *argv[])
    timeout.tv_sec = 5;     
    timeout.tv_usec = 0;
    
-   r = recvfrom(s, &recvack, sizeof(recvack), MSG_DONTWAIT, (struct sockaddr *) &servAddr, &len);
+//    r = recvfrom(s, &recvack, sizeof(recvack), MSG_DONTWAIT, (struct sockaddr *) &servAddr, &len);
    
-   if( r > 0) {
-     if(recvack == nextack) {
-       printf("[recv ack] %d ACCEPTED \n", nextack);
+//    if( r > 0) {
+//      if(recvack == nextack) {
+//        printf("[recv ack] %d ACCEPTED \n", nextack);
    
-       nextack += 1;
+//        nextack += 1;
        
+//        FD_ZERO( &readfds );   
+//        FD_SET ( s, &readfds );   
+//      }
+//      else printf("[recv ack] %d IGNORED \n", recvack);
+//    }
+
+   while(!success) {
+     if ( select ( 32, &readfds, NULL, NULL, &timeout ) == 0 ) {
+       resend = nextack;
+       while(resend < seqnum){
+         repos = resend%5;
+       
+         sendto(s, &buffer[repos], sizeof(sawFrame),0, (struct sockaddr *) &servAddr, len);
+         printf("[resend data] %d (%d) \n", buffer[repos].counter, buffer[repos].bytes);
+       
+         resend += 1;
+       }
        FD_ZERO( &readfds );   
-       FD_SET ( s, &readfds );   
+       FD_SET ( s, &readfds );
+     
+       timeout.tv_sec = 5;     
+       timeout.tv_usec = 0;
+     }
+     else {
+       recvfrom(s, &recvack, sizeof(recvack), 0, (struct sockaddr *) &servAddr, &len);
+       if(recvack == nextack) {
+         printf("[recv ack] %d ACCEPTED \n", nextack);
+   
+         nextack += 1;
+       
+         FD_ZERO( &readfds );   
+         FD_SET ( s, &readfds );   
+         success = 1;
      }
      else printf("[recv ack] %d IGNORED \n", recvack);
-   }
-
-   if ( select ( 32, &readfds, NULL, NULL, &timeout ) == 0 ) {
-     resend = nextack;
-     while(resend < seqnum){
-       repos = resend%5;
-       
-       sendto(s, &buffer[repos], sizeof(sawFrame),0, (struct sockaddr *) &servAddr, len);
-       printf("[resend data] %d (%d) \n", buffer[repos].counter, buffer[repos].bytes);
-       
-       resend += 1;
      }
-     FD_ZERO( &readfds );   
-     FD_SET ( s, &readfds );
-     
-     timeout.tv_sec = 5;     
-     timeout.tv_usec = 0;
    }
-     
  //  if (bytes <= 0) break;
-   counter += bytes;
+
  }
   
   close(fd);
