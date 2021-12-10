@@ -53,6 +53,7 @@ int main(int argc, char *argv[])
   int seq;
   int sendack;
   int ack = 0;
+  int accepted;
   
   while (1) {
     bytes = recvfrom(s,&recv, sizeof(sawFrame),0, (struct sockaddr *) &cliAddr, &len);   
@@ -61,15 +62,17 @@ int main(int argc, char *argv[])
       printf("[recv data] %d (%d) ACCEPTED \n", recv.counter, recv.bytes); 
       write(1, recv.data, recv.bytes);
       ack = recv.seq;
+      accepted = 1;
     }
     else {
       printf("[recv data] %d (%d) IGNORED \n", recv.counter, recv.bytes);
+      accepted = 0;
     }
     
     sendack = recv.seq;
     sendto(s, &sendack, sizeof(sendack), 0, (struct sockaddr *) &cliAddr, len);
     
-    if (recv.bytes == 0) break;
+    if ((recv.bytes == 0) && (accepted == 1)) break;
   }
   
   printf("[completed] \n");
