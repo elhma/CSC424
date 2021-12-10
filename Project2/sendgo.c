@@ -71,7 +71,7 @@ int main(int argc, char *argv[])
   
  while (1) {
    
-   while((seqnum-nextack < 5) && (bytes != 0)) {
+   while((seqnum-nextack < 4) && (bytes != 0)) {
      seqnum = seqnum+1;
      pos = seqnum%5;
      
